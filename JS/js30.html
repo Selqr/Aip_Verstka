@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задания по работе с DOM</title>
+    <link rel="stylesheet" href="styleJS.css">
+</head>
+<body>
+
+    <!-- Задание N1 -->
+    <div class="task">
+        <h2><span class="task-num">N1</span> Добавление элемента в конец списка</h2>
+        <p><strong>Задание:</strong> Вставьте в конец ol элемент li с текстом 'item'.</p>
+        
+        <div class="container">
+            <ol id="elem1"></ol>
+        </div>
+        
+        <button id="task1-btn">Добавить 'item' в конец</button>
+        
+        <div class="result" id="task1-result"></div>
+    </div>
+
+    <!-- Задание N2 -->
+    <div class="task">
+        <h2><span class="task-num">N2</span> Добавление элементов с обработчиками</h2>
+        <p><strong>Задание:</strong> По клику на кнопку добавлять li в конец списка. При клике на любой li добавлять '!' к его тексту.</p>
+        
+        <div class="container">
+            <ol id="elem2"></ol>
+            <button id="button2">Добавить элемент</button>
+        </div>
+    </div>
+
+    <!-- Задание N3 -->
+    <div class="task">
+        <h2><span class="task-num">N3</span> Создание списка с порядковыми номерами</h2>
+        <p><strong>Задание:</strong> Создать цикл, который вставит в ul 10 тегов li с порядковыми номерами.</p>
+        
+        <div class="container">
+            <ul id="elem3"></ul>
+            <button id="task3-btn">Создать список 1-10</button>
+        </div>
+    </div>
+
+    <!-- Задание N4 -->
+    <div class="task">
+        <h2><span class="task-num">N4</span> Работа с инпутами и фокусом</h2>
+        <p><strong>Задание:</strong> Добавить 5 инпутов в div. При потере фокуса инпутом записывать его текст в абзац.</p>
+        
+        <div class="container">
+            <div id="elem4"></div>
+            <p id="output4">Текст из инпутов: </p>
+            <button id="task4-btn">Добавить 5 инпутов</button>
+        </div>
+    </div>
+
+    <!-- Задание N5 -->
+    <div class="task">
+        <h2><span class="task-num">N5</span> Удаление элементов</h2>
+        
+        <h3>Задание 1: Удаление li по клику</h3>
+        <div class="container">
+            <ul id="list5-1">
+                <li>Элемент 1 (кликните для удаления)</li>
+                <li>Элемент 2 (кликните для удаления)</li>
+                <li>Элемент 3 (кликните для удаления)</li>
+            </ul>
+        </div>
+        
+        <h3>Задание 2: Удаление последнего элемента по клику на кнопку</h3>
+        <div class="container">
+            <ul id="parent5">
+                <li>Элемент 1</li>
+                <li>Элемент 2</li>
+                <li>Элемент 3</li>
+            </ul>
+            <input type="submit" id="button5" value="Удалить последний">
+        </div>
+    </div>
+
+    <!-- Задание N6 -->
+    <div class="task">
+        <h2><span class="task-num">N6</span> Вставка элементов в начало и конец</h2>
+        <p><strong>Задание:</strong> Вставить в начало списка элемент с текстом 'start', а в конец - с текстом 'finish'.</p>
+        
+        <div class="container">
+            <ul id="elem6">
+                <li>text</li>
+                <li>text</li>
+                <li>text</li>
+                <li>text</li>
+                <li>text</li>
+            </ul>
+            <button id="task6-btn">Добавить start и finish</button>
+        </div>
+    </div>
+
+    <!-- Задание N7 -->
+    <div class="task">
+        <h2><span class="task-num">N7</span> Вставка элемента перед указанным</h2>
+        
+        <h3>Задание 1: Вставка элемента перед указанным</h3>
+        <div class="container">
+            <ul id="parent7">
+                <li>text 1</li>
+                <li>text 2</li>
+                <li id="elem7">target element</li>
+                <li>text 4</li>
+                <li>text 5</li>
+            </ul>
+            <button id="task7-1-btn">Вставить 'new' перед target</button>
+        </div>
+        
+        <h3>Задание 2: Добавление обработчика на вставленный элемент</h3>
+        <button id="task7-2-btn">Вставить элемент с обработчиком</button>
+        <div class="result" id="task7-result"></div>
+    </div>
+
+    <!-- Задание N8 -->
+    <div class="task">
+        <h2><span class="task-num">N8</span> Разные способы вставки элементов</h2>
+        
+        <div class="container">
+            <div id="elem8" style="border: 1px solid red; padding: 10px; margin: 10px 0;">
+                <p>text 1</p>
+                <p>text 2</p>
+                <p>text 3</p>
+            </div>
+        </div>
+        
+        <button id="task8-1-btn">Вставить '!!!' перед div (Задание 1)</button>
+        <button id="task8-2-btn">Вставить '!!!' после div (Задание 2)</button>
+        <button id="task8-3-btn">Вставить '!!!' в начало div (Задание 3)</button>
+    </div>
+
+    <!-- Задание N9 -->
+    <div class="task">
+        <h2><span class="task-num">N9</span> Вставка HTML строкой</h2>
+        <p><strong>Задание:</strong> Вставить перед элементом указанный HTML.</p>
+        
+        <div class="container">
+            <div id="elem9" style="border: 1px solid red; padding: 10px; margin: 10px 0;">
+                <p>text</p>
+                <p>text</p>
+                <p>text</p>
+            </div>
+            <button id="task9-btn">Вставить HTML перед div</button>
+        </div>
+    </div>
+
+    <!-- Задание N10 -->
+    <div class="task">
+        <h2><span class="task-num">N10</span> Клонирование элементов</h2>
+        <p><strong>Задание:</strong> Клонировать инпут по нажатию на кнопку.</p>
+        
+        <div class="container">
+            <input type="text" id="originalInput10" placeholder="Оригинальный инпут">
+            <button id="task10-btn">Клонировать инпут</button>
+            <div id="cloneContainer10" style="margin-top: 10px;"></div>
+        </div>
+    </div>
+
+    <!-- Задание N11 -->
+    <div class="task">
+        <h2><span class="task-num">N11</span> Проверка свойств элементов</h2>
+        
+        <h3>Задание 1: Проверка класса элемента</h3>
+        <div class="container">
+            <div id="elem11" class="www">Элемент с классом www</div>
+            <button id="task11-1-btn">Проверить класс www</button>
+            <div class="result" id="result11-1"></div>
+        </div>
+        
+        <h3>Задание 2: Проверка типа элемента</h3>
+        <div class="container">
+            <p id="elem11-2">Это абзац</p>
+            <div id="elem11-3">Это div</div>
+            <button id="task11-2-btn">Проверить является ли элемент абзацем</button>
+            <div class="result" id="result11-2"></div>
+        </div>
+        
+        <h3>Задание 3: Проверка родственных связей</h3>
+        <div class="container">
+            <div id="elem1-11">
+                Родительский элемент
+                <p id="elem2-11">Дочерний элемент</p>
+            </div>
+            <button id="task11-3-btn">Проверить является ли elem2 потомком elem1</button>
+            <div class="result" id="result11-3"></div>
+        </div>
+    </div>
+
+    <script>
+        // Задание N1
+        document.getElementById('task1-btn').addEventListener('click', function() {
+            const elem1 = document.getElementById('elem1');
+            const li = document.createElement('li');
+            li.textContent = 'item';
+            elem1.appendChild(li);
+            li.onclick = function()
+            {
+                this.textContent += '!';
+            }
+            document.getElementById('task1-result').textContent = 'Элемент добавлен!';
+        });
+
+        // Задание N2
+        const button2 = document.getElementById('button2');
+        const elem2 = document.getElementById('elem2');
+        
+        button2.addEventListener('click', function() {
+            const li = document.createElement('li');
+            li.textContent = `item ${elem2.children.length + 1}`;
+            
+            li.addEventListener('click', function() {
+                this.textContent += '!';
+            });
+            
+            elem2.appendChild(li);
+        });
+
+        // Задание N3
+        document.getElementById('task3-btn').addEventListener('click', function() {
+            const elem3 = document.getElementById('elem3');
+            elem3.innerHTML = ''; // Очищаем список
+            
+            for (let i = 1; i <= 10; i++) {
+                const li = document.createElement('li');
+                li.textContent = `Элемент ${i}`;
+                elem3.appendChild(li);
+            }
+        });
+
+        // Задание N4
+        document.getElementById('task4-btn').addEventListener('click', function() {
+            const elem4 = document.getElementById('elem4');
+            const output4 = document.getElementById('output4');
+            
+            for (let i = 1; i <= 5; i++) {
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.placeholder = `Инпут ${i}`;
+                
+                input.addEventListener('blur', function() {
+                    output4.textContent = `Текст из инпутов: ${this.value}`;
+                });
+                
+                elem4.appendChild(input);
+                elem4.appendChild(document.createElement('br'));
+            }
+        });
+
+        // Задание N5
+        // Задание 5.1
+        const list5_1 = document.getElementById('list5-1');
+        list5_1.addEventListener('click', function(e) {
+            if (e.target.tagName === 'LI') {
+                e.target.remove();
+            }
+        });
+
+        // Задание 5.2
+        document.getElementById('button5').addEventListener('click', function() {
+            const parent5 = document.getElementById('parent5');
+            const lastChild = parent5.lastElementChild;
+            
+            if (lastChild) {
+                lastChild.remove();
+            }
+        });
+
+        // Задание N6
+        document.getElementById('task6-btn').addEventListener('click', function() {
+            const elem6 = document.getElementById('elem6');
+            
+            const startLi = document.createElement('li');
+            startLi.textContent = 'start';
+            elem6.prepend(startLi);
+            
+            const finishLi = document.createElement('li');
+            finishLi.textContent = 'finish';
+            elem6.append(finishLi);
+        });
+
+        // Задание N7
+        // Задание 7.1
+        document.getElementById('task7-1-btn').addEventListener('click', function() {
+            const elem7 = document.getElementById('elem7');
+            const newLi = document.createElement('li');
+            newLi.textContent = 'new';
+            elem7.parentElement.insertBefore(newLi, elem7);
+        });
+
+        // Задание 7.2
+        document.getElementById('task7-2-btn').addEventListener('click', function() {
+            const elem7 = document.getElementById('elem7');
+            const newLi = document.createElement('li');
+            newLi.textContent = 'кликните меня';
+            
+            // Добавляем обработчик
+            newLi.addEventListener('click', function() {
+                this.textContent += '!';
+            });
+            
+            elem7.parentElement.insertBefore(newLi, elem7);
+            document.getElementById('task7-result').textContent = 'Элемент добавлен! Кликните на него для добавления "!"';
+        });
+
+        // Задание N8
+        // Задание 8.1
+        document.getElementById('task8-1-btn').addEventListener('click', function() {
+            const elem8 = document.getElementById('elem8');
+            const p = document.createElement('p');
+            p.textContent = '!!!';
+            elem8.parentElement.insertBefore(p, elem8);
+        });
+
+        // Задание 8.2
+        document.getElementById('task8-2-btn').addEventListener('click', function() {
+            const elem8 = document.getElementById('elem8');
+            const p = document.createElement('p');
+            p.textContent = '!!!';
+            elem8.parentElement.insertBefore(p, elem8.nextSibling);
+        });
+
+        // Задание 8.3
+        document.getElementById('task8-3-btn').addEventListener('click', function() {
+            const elem8 = document.getElementById('elem8');
+            const p = document.createElement('p');
+            p.textContent = '!!!';
+            elem8.prepend(p);
+        });
+
+        // Задание N9
+        document.getElementById('task9-btn').addEventListener('click', function() {
+            const elem9 = document.getElementById('elem9');
+            const htmlString = '<div class="www"><p>text</p><p>text</p><input type="text"></div>';
+            elem9.insertAdjacentHTML('beforebegin', htmlString);
+        });
+
+        // Задание N10
+        document.getElementById('task10-btn').addEventListener('click', function() {
+            const originalInput = document.getElementById('originalInput10');
+            const cloneContainer = document.getElementById('cloneContainer10');
+            
+            const clone = originalInput.cloneNode(true);
+            clone.value = '';
+            clone.placeholder = `Клон ${cloneContainer.children.length + 1}`;
+            
+            cloneContainer.appendChild(clone);
+            cloneContainer.appendChild(document.createElement('br'));
+        });
+
+        // Задание N11
+        // Задание 11.1
+        document.getElementById('task11-1-btn').addEventListener('click', function() {
+            const elem11 = document.getElementById('elem11');
+            const hasClass = elem11.classList.contains('www');
+            document.getElementById('result11-1').textContent = 
+                `Элемент имеет класс 'www': ${hasClass}`;
+        });
+
+        // Задание 11.2
+        document.getElementById('task11-2-btn').addEventListener('click', function() {
+            const elem11_2 = document.getElementById('elem11-2');
+            const elem11_3 = document.getElementById('elem11-3');
+            
+            const isParagraph1 = elem11_2.tagName === 'P';
+            const isParagraph2 = elem11_3.tagName === 'P';
+            
+            document.getElementById('result11-2').textContent = 
+                `Первый элемент является абзацем: ${isParagraph1}\n` +
+                `Второй элемент является абзацем: ${isParagraph2}`;
+        });
+
+        // Задание 11.3
+        document.getElementById('task11-3-btn').addEventListener('click', function() {
+            const elem1 = document.getElementById('elem1-11');
+            const elem2 = document.getElementById('elem2-11');
+            
+            const isDescendant = elem1.contains(elem2);
+            
+            document.getElementById('result11-3').textContent = 
+                `elem2 является потомком elem1: ${isDescendant}`;
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const elem1 = document.getElementById('elem1');
+            const li = document.createElement('li');
+            li.textContent = 'item';
+            elem1.appendChild(li);
+            
+            for (let i = 1; i <= 3; i++) {
+                const li = document.createElement('li');
+                li.textContent = `item ${i}`;
+                li.addEventListener('click', function() {
+                    this.textContent += '!';
+                });
+                elem2.appendChild(li);
+            }
+        });
+    </script>
+</body>
+</html>

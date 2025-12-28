@@ -1,0 +1,71 @@
+p {
+	color: rgb(0, 204, 255);
+	text-align: center;
+	width: 400px;
+	font-weight: bold;
+	font-size: 30px;
+	font-family: "Comic Sans MS";
+	line-height: 1.5;
+	text-indent: 50px;
+
+}
+h1 {
+	color: #0073ff;
+	text-align: center;
+	font-weight: normal;
+	font-size: 50px;
+}
+h2 {
+	color: rgb(30, 118, 0);
+	text-align: center;
+	width: 300px;
+	font-style: italic;
+	font-size: 40px;
+	font-weight: normal;
+}
+h3 {
+	color: red;
+}
+a {
+	color: orange;
+}
+a{
+	color:darkslategrey
+}
+body{
+	background-color: #ffffff;
+}
+
+td {
+	width: 500px;
+	height: 300px;
+	text-align: center;
+	font-weight: bold;
+}
+
+th {
+	text-align: left;
+	font-weight: normal;
+}
+
+p {
+	text-decoration: none;
+}
+
+b {
+	color: red;
+}
+
+i {
+	color: aquamarine;
+	font-size: 30px;
+}
+ul {
+	color: #0073ff;
+	font-size: 20px;
+}
+li {
+	color: red;
+	font-weight: bold;
+}
+

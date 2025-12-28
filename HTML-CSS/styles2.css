@@ -1,0 +1,108 @@
+p {
+	color: blueviolet;
+}
+
+b {
+	color: red;
+}
+
+i {
+	color: aquamarine;
+	font-size: 30px;
+}
+ul {
+	color: #0073ff;
+	font-size: 20px;
+}
+li {
+	color: red;
+	font-weight: bold;
+}
+
+ul li i {
+	color: rgb(186, 0, 149);
+}
+
+ul li b {
+	color: rgb(255, 251, 0);
+}
+
+ol li {
+	color: green;
+}
+
+p i {
+	color: red;
+}
+
+.odd {
+	color: red;
+}
+
+.eve{
+	font-size: 30px;
+	color: green;
+}
+
+.eee{
+	color: rgb(255, 0, 0);
+}
+
+.xxx{
+	font-size: 30px;
+}
+
+.block1{
+	color: red;
+}
+
+.block2{
+	color: green;
+}
+
+.block3{
+	color: blue;
+}
+
+.ggg .eee .zzz {
+	text-align: center;
+	font-family: Arial;
+}
+
+.eee {
+	font-size: 20px;
+}
+.zzz {
+	font-size: 30px;
+}
+.ggg {
+	font-size: 35px;
+}
+
+.header h2 {
+	font-size: 40px;
+	color: red;
+}
+
+.header h3 {
+	font-size: 30px;
+	color: red;
+}
+
+#elem1 {
+	color: red;
+}
+#block2 {
+	color: green;
+}
+#block2 {
+	color: blue;
+}
+
+#block {
+	color: red;
+	font-family: Arial;
+}
+.text {
+	font-size: 30px;
+}

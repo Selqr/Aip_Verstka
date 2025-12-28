@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Методы контекста JavaScript</title>
+    <style>
+        body { font-family: Arial; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .demo { margin: 20px 0; padding: 15px; border: 1px solid #ccc; }
+        h3 { margin-top: 0; }
+        input { margin: 10px 0; padding: 5px; width: 200px; display: block; }
+        .result { margin: 10px 0; padding: 10px; background: #f5f5f5; font-family: monospace; min-height: 20px; }
+        .code { background: #f8f8f8; padding: 10px; margin: 5px 0; font-family: 'Courier New'; font-size: 14px; }
+        button { margin: 5px; padding: 8px 16px; }
+    </style>
+</head>
+<body>
+    <h1>Методы контекста: call, apply, bind</h1>
+
+    <div class="demo">
+        <h3>1. Проблема потери контекста</h3>
+        <input class="demo-input" value="текст" data-id="input1">
+        <button onclick="demo1()">Проверить</button>
+        <div class="code">function inner() { return this.value; } // Ошибка!</div>
+        <div id="result1" class="result"></div>
+    </div>
+    
+    <div class="demo">
+        <h3>2. Решение через переменную self</h3>
+        <input class="demo-input" value="3" data-id="input2">
+        <button onclick="demo2()">Посчитать квадрат</button>
+        <div class="code">const self = this; // сохраняем контекст</div>
+        <div id="result2" class="result"></div>
+    </div>
+    
+    <div class="demo">
+        <h3>3. Решение через параметр</h3>
+        <input class="demo-input" value="3" data-id="input3">
+        <button onclick="demo3()">Посчитать квадрат</button>
+        <div class="code">function inner(context) { return context.value; }</div>
+        <div id="result3" class="result"></div>
+    </div>
+    
+    <div class="demo">
+        <h3>4. Решение через стрелочную функцию</h3>
+        <input class="demo-input" value="3" data-id="input4">
+        <button onclick="demo4()">Посчитать квадрат</button>
+        <div class="code">const inner = () => this.value; // сохраняет контекст</div>
+        <div id="result4" class="result"></div>
+    </div>
+    
+    <div class="demo">
+        <h3>5. Метод call()</h3>
+        <input class="demo-input" value="text1" data-id="input5a">
+        <input class="demo-input" value="text2" data-id="input5b">
+        <input class="demo-input" value="text3" data-id="input5c">
+        <button onclick="demo5()">Получить значения</button>
+        <div class="code">func.call(context, arg1, arg2, ...)</div>
+        <div id="result5" class="result"></div>
+    </div>
+    
+    <div class="demo">
+        <h3>6. Метод call() с параметрами</h3>
+        <input class="demo-input" value="Привет" data-id="input6">
+        <button onclick="demo6()">Поприветствовать</button>
+        <div class="code">greet.call(input, 'Иван', 'Петров')</div>
+        <div id="result6" class="result"></div>
+    </div>
+    
+    <div class="demo">
+        <h3>7. Метод apply()</h3>
+        <input class="demo-input" value="Здравствуйте" data-id="input7">
+        <button onclick="demo7()">Поприветствовать</button>
+        <div class="code">greet.apply(input, ['Мария', 'Иванова'])</div>
+        <div id="result7" class="result"></div>
+    </div>
+    
+    <div class="demo">
+        <h3>8. Метод bind()</h3>
+        <input class="demo-input" value="Добрый день" data-id="input8">
+        <button onclick="demo8()">Использовать bind</button>
+        <div class="code">const bound = func.bind(context); bound(arg1, arg2);</div>
+        <div id="result8" class="result"></div>
+    </div>
+
+    <script>
+        // Функция для получения значения инпута по data-id
+        function getInputValue(id) {
+            return document.querySelector(`[data-id="${id}"]`).value;
+        }
+
+        // Демонстрация 1: Проблема потери контекста
+        function demo1() {
+            const input = document.querySelector('[data-id="input1"]');
+            
+            function outer() {
+                // Обычная функция - теряет контекст
+                function inner() {
+                    try {
+                        return this.value;
+                    } catch(e) {
+                        return 'Ошибка: ' + e.message;
+                    }
+                }
+                return inner();
+            }
+            
+            // Пытаемся вызвать outer с контекстом input
+            document.getElementById('result1').textContent = outer.call(input);
+        }
+
+        // Демонстрация 2: Решение через переменную self
+        function demo2() {
+            const input = document.querySelector('[data-id="input2"]');
+            
+            function outer() {
+                const self = this; // сохраняем контекст
+                
+                function inner() {
+                    const value = parseFloat(self.value) || 0;
+                    return value * value;
+                }
+                return inner();
+            }
+            
+            const result = outer.call(input);
+            document.getElementById('result2').textContent = `Квадрат ${input.value} = ${result}`;
+        }
+
+        // Демонстрация 3: Решение через параметр
+        function demo3() {
+            const input = document.querySelector('[data-id="input3"]');
+            
+            function outer() {
+                function inner(context) {
+                    const value = parseFloat(context.value) || 0;
+                    return value * value;
+                }
+                return inner(this);
+            }
+            
+            const result = outer.call(input);
+            document.getElementById('result3').textContent = `Квадрат ${input.value} = ${result}`;
+        }
+
+        // Демонстрация 4: Решение через стрелочную функцию
+        function demo4() {
+            const input = document.querySelector('[data-id="input4"]');
+            
+            function outer() {
+                // Стрелочная функция сохраняет контекст outer
+                const inner = () => {
+                    const value = parseFloat(this.value) || 0;
+                    return value * value;
+                };
+                return inner();
+            }
+            
+            const result = outer.call(input);
+            document.getElementById('result4').textContent = `Квадрат ${input.value} = ${result}`;
+        }
+
+        // Демонстрация 5: Метод call()
+        function demo5() {
+            const inputs = [
+                document.querySelector('[data-id="input5a"]'),
+                document.querySelector('[data-id="input5b"]'),
+                document.querySelector('[data-id="input5c"]')
+            ];
+            
+            // Функция, которая использует this
+            function getValue() {
+                return this.value;
+            }
+            
+            // Используем call для каждого инпута
+            const values = inputs.map(input => getValue.call(input));
+            document.getElementById('result5').textContent = 'Значения: ' + values.join(', ');
+        }
+
+        // Демонстрация 6: Метод call() с параметрами
+        function demo6() {
+            const input = document.querySelector('[data-id="input6"]');
+            
+            function greet(name, surname) {
+                return `${this.value}, ${name} ${surname}!`;
+            }
+            
+            // Используем call с контекстом input и двумя параметрами
+            const result = greet.call(input, 'Иван', 'Петров');
+            document.getElementById('result6').textContent = result;
+        }
+
+        // Демонстрация 7: Метод apply()
+        function demo7() {
+            const input = document.querySelector('[data-id="input7"]');
+            
+            function greet(name, surname) {
+                return `${this.value}, ${name} ${surname}!`;
+            }
+            
+            // Используем apply с контекстом input и массивом параметров
+            const result = greet.apply(input, ['Мария', 'Иванова']);
+            document.getElementById('result7').textContent = result;
+        }
+
+        // Демонстрация 8: Метод bind()
+        function demo8() {
+            const input = document.querySelector('[data-id="input8"]');
+            
+            function greet(name, surname) {
+                return `${this.value}, ${name} ${surname}!`;
+            }
+            
+            // Создаем новую функцию с привязанным контекстом
+            const boundGreet = greet.bind(input);
+            
+            // Можем вызывать boundGreet с разными параметрами
+            const result1 = boundGreet('Алексей', 'Сидоров');
+            const result2 = boundGreet('Елена', 'Васильева');
+            const result3 = boundGreet('Дмитрий', 'Кузнецов');
+            
+            document.getElementById('result8').textContent = 
+                `${result1}\n${result2}\n${result3}`;
+        }
+
+        // Инициализация: показываем начальные значения
+        window.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('result1').textContent = 'Нажмите "Проверить"';
+            document.getElementById('result2').textContent = 'Нажмите "Посчитать квадрат"';
+            document.getElementById('result3').textContent = 'Нажмите "Посчитать квадрат"';
+            document.getElementById('result4').textContent = 'Нажмите "Посчитать квадрат"';
+            document.getElementById('result5').textContent = 'Нажмите "Получить значения"';
+            document.getElementById('result6').textContent = 'Нажмите "Поприветствовать"';
+            document.getElementById('result7').textContent = 'Нажмите "Поприветствовать"';
+            document.getElementById('result8').textContent = 'Нажмите "Использовать bind"';
+        });
+    </script>
+</body>
+</html>

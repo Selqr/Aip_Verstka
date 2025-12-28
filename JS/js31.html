@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Решение задач по JavaScript</title>
+    <link rel="stylesheet" href="styleJS.css">
+</head>
+<body>
+
+    <h2>Задача n1</h2>
+    <div id="parent1"></div>
+
+    <h2>Задача n2</h2>
+    <ul id="elem2"></ul>
+
+    <h2>Задачи n3</h2>
+    <h3>Таблица 5x5</h3>
+    <table id="table3-1" border="1"></table>
+    
+    <h3>Таблица 10x5</h3>
+    <table id="table3-2" border="1"></table>
+    
+    <h3>Генератор таблиц</h3>
+    <label>Рядов: <input type="number" id="rowsInput" value="5"></label>
+    <label>Колонок: <input type="number" id="colsInput" value="5"></label>
+    <button onclick="generateTable()">Создать таблицу</button>
+    <table id="table3-3" border="1"></table>
+
+    <h2>Задача n4</h2>
+    <table id="table4" border="1"></table>
+
+    <h2>Задачи n5</h2>
+    <table id="table5" border="1"></table>
+    
+    <h3>Таблица с квадратами</h3>
+    <table id="table5-2" border="1"></table>
+
+    <h2>Задачи n6</h2>
+    <table id="table6" border="1"></table>
+
+    <h2>Задачи n7</h2>
+    <button onclick="addRow()">Добавить ряд</button>
+    <table id="table7-1" border="1"></table>
+    
+    <h3>Расширяемая таблица</h3>
+    <button onclick="expandTable()">Увеличить таблицу</button>
+    <table id="table7-2" border="1">
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+
+    <h2>Задача n8</h2>
+    <button onclick="doubleNumbers()">Удвоить числа</button>
+    <table id="table8" border="1">
+        <tr>
+            <td>1</td>
+            <td>2</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>4</td>
+        </tr>
+    </table>
+
+    <h2>Задача n9</h2>
+    <ul id="parent9">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+    <input type="submit" id="button9" value="Добавить элемент">
+
+    <h2>Задачи n10</h2>
+    <ul id="ul10">
+        <li>Пункт 1</li>
+        <li>Пункт 2</li>
+        <li>Пункт 3</li>
+    </ul>
+    
+    <h3>Таблица с удалением строк</h3>
+    <table id="table10" border="1">
+        <tr>
+            <td>Строка 1</td>
+            <td>Данные 1</td>
+        </tr>
+        <tr>
+            <td>Строка 2</td>
+            <td>Данные 2</td>
+        </tr>
+    </table>
+
+    <h2>Задачи n11</h2>
+    <ul id="ul11">
+        <li>Текст 1</li>
+        <li>Текст 2</li>
+        <li>Текст 3</li>
+    </ul>
+    
+    <h3>Редактируемая таблица</h3>
+    <table id="table11" border="1">
+        <tr>
+            <td>Ячейка 1</td>
+            <td>Ячейка 2</td>
+        </tr>
+        <tr>
+            <td>Ячейка 3</td>
+            <td>Ячейка 4</td>
+        </tr>
+    </table>
+
+    <h2>Задача n12</h2>
+    <div id="parent12">
+        <p><span>text1</span></p>
+        <p><span>text2</span></p>
+        <p><span>text3</span></p>
+    </div>
+
+    <h2>Задачи n13</h2>
+    <div id="parent13">
+        <p>text1</p>
+        <p>text2</p>
+        <p>text3</p>
+    </div>
+    
+    <h3>Таблица с выделением</h3>
+    <table id="table13" border="1">
+        <tr>
+            <td>Строка 1</td>
+            <td>Данные 1</td>
+        </tr>
+        <tr>
+            <td>Строка 2</td>
+            <td>Данные 2</td>
+        </tr>
+    </table>
+
+    <h2>Задачи n14</h2>
+    <ul id="ul14">
+        <li>Пункт 1</li>
+        <li>Пункт 2</li>
+        <li>Пункт 3</li>
+    </ul>
+
+    <h2>Задачи n15</h2>
+    <div id="tasks15">
+        <h3>Список из массива</h3>
+        <ul id="ul15-1"></ul>
+        
+        <h3>Список с редактированием</h3>
+        <ul id="ul15-2"></ul>
+        
+        <h3>Список с добавлением</h3>
+        <ul id="ul15-3"></ul>
+        <input type="text" id="newItemInput" placeholder="Новый элемент">
+        <button onclick="addNewItem()">Добавить</button>
+        
+        <h3>Список с удалением и перечеркиванием</h3>
+        <ul id="ul15-4"></ul>
+        
+        <h3>Таблица работников</h3>
+        <table id="table15-6" border="1"></table>
+        
+        <h3>Добавление работника</h3>
+        <input type="text" id="nameInput" placeholder="Имя">
+        <input type="number" id="ageInput" placeholder="Возраст">
+        <input type="number" id="salaryInput" placeholder="Зарплата">
+        <button onclick="addEmployee()">Добавить работника</button>
+        
+        <h3>Список работников</h3>
+        <ul id="ul15-10"></ul>
+        
+        <h3>Форма для добавления работника</h3>
+        <input type="text" id="newName" placeholder="Имя">
+        <input type="number" id="newAge" placeholder="Возраст">
+        <input type="number" id="newSalary" placeholder="Зарплата">
+        <button onclick="addEmployeeToList()">Добавить в список</button>
+    </div>
+
+    <script>
+        // Задача n1
+        let parent = document.querySelector('#parent1');
+        let arr = [1, 2, 3, 4, 5];
+
+        for (let elem of arr) {
+            let p = document.createElement('p');
+            p.textContent = elem;
+            p.onclick = function() {
+                this.textContent = parseInt(this.textContent) + 1;
+            };
+            parent.appendChild(p);
+        }
+
+        // Задача n2
+        let elem2 = document.querySelector('#elem2');
+        let arr2 = ['Элемент 1', 'Элемент 2', 'Элемент 3'];
+        
+        // задание1
+        for (let item of arr2) {
+            let li = document.createElement('li');
+            li.textContent = item;
+            elem2.appendChild(li);
+        }
+        
+        // задание2
+        let lis2 = elem2.querySelectorAll('li');
+        lis2.forEach(li => {
+            li.onclick = function() {
+                alert(this.textContent);
+            };
+        });
+        
+        // задание3 и 4
+        elem2.addEventListener('click', function(event) {
+            if (event.target.tagName === 'LI' && !event.target.textContent.includes('!')) {
+                event.target.textContent += '!';
+            }
+        });
+
+        // Задача n3
+        // задание1 
+        let table1 = document.querySelector('#table3-1');
+        for (let i = 0; i < 5; i++) {
+            let tr = document.createElement('tr');
+            for (let j = 0; j < 5; j++) {
+                let td = document.createElement('td');
+                td.textContent = '';
+                tr.appendChild(td);
+            }
+            table1.appendChild(tr);
+        }
+        
+        // задание2 
+        let table2 = document.querySelector('#table3-2');
+        for (let i = 0; i < 10; i++) {
+            let tr = document.createElement('tr');
+            for (let j = 0; j < 5; j++) {
+                let td = document.createElement('td');
+                td.textContent = 'x';
+                tr.appendChild(td);
+            }
+            table2.appendChild(tr);
+        }
+        
+        // задание4 
+        function generateTable() {
+            let rows = parseInt(document.querySelector('#rowsInput').value);
+            let cols = parseInt(document.querySelector('#colsInput').value);
+            let table = document.querySelector('#table3-3');
+            table.innerHTML = '';
+            
+            for (let i = 0; i < rows; i++) {
+                let tr = document.createElement('tr');
+                for (let j = 0; j < cols; j++) {
+                    let td = document.createElement('td');
+                    td.textContent = `${i+1}-${j+1}`;
+                    tr.appendChild(td);
+                }
+                table.appendChild(tr);
+            }
+        }
+        generateTable();
+
+        // Задача n4
+        let table4 = document.querySelector('#table4');
+        let counter = 1;
+        for (let i = 0; i < 5; i++) {
+            let tr = document.createElement('tr');
+            for (let j = 0; j < 5; j++) {
+                let td = document.createElement('td');
+                td.textContent = counter++;
+                tr.appendChild(td);
+            }
+            table4.appendChild(tr);
+        }
+
+        // Задача n5
+        let arr5 = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11, 12]];
+        let table5 = document.querySelector('#table5');
+        let table5_2 = document.querySelector('#table5-2');
+        
+        for (let row of arr5) {
+            let tr1 = document.createElement('tr');
+            let tr2 = document.createElement('tr');
+            
+            for (let cell of row) {
+                let td1 = document.createElement('td');
+                td1.textContent = cell;
+                tr1.appendChild(td1);
+                
+                let td2 = document.createElement('td');
+                td2.textContent = cell * cell;
+                tr2.appendChild(td2);
+            }
+            
+            table5.appendChild(tr1);
+            table5_2.appendChild(tr2);
+        }
+
+        // Задача n6
+        let employees = [
+            {name: 'employee1', age: 30, salary: 400},
+            {name: 'employee2', age: 31, salary: 500},
+            {name: 'employee3', age: 32, salary: 600},
+        ];
+        
+        let table6 = document.querySelector('#table6');
+        
+        let headerRow = document.createElement('tr');
+        ['Имя', 'Возраст', 'Зарплата'].forEach(text => {
+            let th = document.createElement('th');
+            th.textContent = text;
+            headerRow.appendChild(th);
+        });
+        table6.appendChild(headerRow);
+        
+        employees.forEach(emp => {
+            let tr = document.createElement('tr');
+            
+            let tdName = document.createElement('td');
+            tdName.textContent = emp.name;
+            tr.appendChild(tdName);
+            
+            let tdAge = document.createElement('td');
+            tdAge.textContent = emp.age;
+            tdAge.onclick = function() {
+                this.textContent = parseInt(this.textContent) + 1;
+            };
+            tr.appendChild(tdAge);
+            
+            let tdSalary = document.createElement('td');
+            tdSalary.textContent = emp.salary;
+            tdSalary.onclick = function() {
+                this.textContent = Math.round(parseInt(this.textContent) * 1.1);
+            };
+            tr.appendChild(tdSalary);
+            
+            table6.appendChild(tr);
+        });
+
+        // Задача n7
+        let table7_1 = document.querySelector('#table7-1');
+        
+        function addRow() {
+            let tr = document.createElement('tr');
+            for (let i = 1; i <= 3; i++) {
+                let td = document.createElement('td');
+                td.textContent = `Ячейка ${table7_1.rows.length + 1}-${i}`;
+                tr.appendChild(td);
+            }
+            table7_1.appendChild(tr);
+        }
+        
+        for (let i = 0; i < 3; i++) {
+            addRow();
+        }
+        
+        function expandTable() {
+            let table = document.querySelector('#table7-2');
+            
+            let rows = table.rows;
+            for (let i = 0; i < rows.length; i++) {
+                let td = document.createElement('td');
+                td.textContent = `${i+1}-${rows[i].cells.length + 1}`;
+                rows[i].appendChild(td);
+            }
+            
+            let newRow = document.createElement('tr');
+            for (let i = 0; i < rows[0].cells.length; i++) {
+                let td = document.createElement('td');
+                td.textContent = `${rows.length + 1}-${i+1}`;
+                newRow.appendChild(td);
+            }
+            table.appendChild(newRow);
+        }
+
+        // Задача n8
+        function doubleNumbers() {
+            let table = document.querySelector('#table8');
+            let tds = table.querySelectorAll('td');
+            tds.forEach(td => {
+                td.textContent = parseInt(td.textContent) * 2;
+            });
+        }
+
+        // Задача n9
+        let parent9 = document.querySelector('#parent9');
+        let button9 = document.querySelector('#button9');
+        
+        button9.onclick = function() {
+            let li = document.createElement('li');
+            li.textContent = parent9.children.length + 1;
+            li.onclick = function() {
+                this.remove();
+            };
+            parent9.appendChild(li);
+        };
+        
+        let lis9 = parent9.querySelectorAll('li');
+        lis9.forEach(li => {
+            li.onclick = function() {
+                this.remove();
+            };
+        });
+
+        // Задача n10
+        // задание1
+        let ul10 = document.querySelector('#ul10');
+        let lis10 = ul10.querySelectorAll('li');
+        lis10.forEach(li => {
+            let link = document.createElement('a');
+            link.href = '#';
+            link.textContent = ' удалить';
+            link.onclick = function(e) {
+                e.preventDefault();
+                li.remove();
+            };
+            li.appendChild(link);
+        });
+        
+        // задание2
+        let table10 = document.querySelector('#table10');
+        let rows10 = table10.querySelectorAll('tr');
+        rows10.forEach(row => {
+            let td = document.createElement('td');
+            let link = document.createElement('a');
+            link.href = '#';
+            link.textContent = 'удалить';
+            link.onclick = function(e) {
+                e.preventDefault();
+                row.remove();
+            };
+            td.appendChild(link);
+            row.appendChild(td);
+        });
+
+        // Задача n11
+        // задание1
+        let ul11 = document.querySelector('#ul11');
+        ul11.addEventListener('click', function(e) {
+            if (e.target.tagName === 'LI' && e.target.querySelector('input') === null) {
+                let li = e.target;
+                let text = li.textContent;
+                li.innerHTML = '';
+                let input = document.createElement('input');
+                input.type = 'text';
+                input.value = text;
+                input.onblur = function() {
+                    li.textContent = this.value;
+                };
+                input.onkeypress = function(e) {
+                    if (e.key === 'Enter') {
+                        this.blur();
+                    }
+                };
+                li.appendChild(input);
+                input.focus();
+            }
+        });
+        
+        // задание2
+        let table11 = document.querySelector('#table11');
+        table11.addEventListener('click', function(e) {
+            if (e.target.tagName === 'TD' && e.target.querySelector('input') === null) {
+                let td = e.target;
+                let text = td.textContent;
+                td.innerHTML = '';
+                let input = document.createElement('input');
+                input.type = 'text';
+                input.value = text;
+                input.onblur = function() {
+                    td.textContent = this.value;
+                };
+                input.onkeypress = function(e) {
+                    if (e.key === 'Enter') {
+                        this.blur();
+                    }
+                };
+                td.appendChild(input);
+                input.focus();
+            }
+        });
+
+        // Задача n12
+        let parent12 = document.querySelector('#parent12');
+        let paragraphs12 = parent12.querySelectorAll('p');
+        
+        paragraphs12.forEach(p => {
+            let link = document.createElement('a');
+            link.href = '#';
+            link.textContent = ' удалить';
+            link.onclick = function(e) {
+                e.preventDefault();
+                p.remove();
+            };
+            p.appendChild(link);
+            
+            let span = p.querySelector('span');
+            span.onclick = function() {
+                let text = this.textContent;
+                this.innerHTML = '';
+                let input = document.createElement('input');
+                input.type = 'text';
+                input.value = text;
+                input.onblur = function() {
+                    span.textContent = this.value;
+                };
+                input.onkeypress = function(e) {
+                    if (e.key === 'Enter') {
+                        this.blur();
+                    }
+                };
+                span.appendChild(input);
+                input.focus();
+            };
+        });
+
+        // Задача n13
+        // задание1 и 2
+        let parent13 = document.querySelector('#parent13');
+        let paragraphs13 = parent13.querySelectorAll('p');
+        
+        paragraphs13.forEach(p => {
+            let link = document.createElement('a');
+            link.href = '#';
+            link.textContent = ' перечеркнуть';
+            link.onclick = function(e) {
+                e.preventDefault();
+                p.style.textDecoration = 'line-through';
+                this.remove();
+            };
+            p.appendChild(link);
+        });
+        
+        // задание3
+        let table13 = document.querySelector('#table13');
+        let rows13 = table13.querySelectorAll('tr');
+        rows13.forEach(row => {
+            let td = document.createElement('td');
+            let link = document.createElement('a');
+            link.href = '#';
+            link.textContent = 'выделить';
+            link.onclick = function(e) {
+                e.preventDefault();
+                row.style.backgroundColor = 'green';
+            };
+            td.appendChild(link);
+            row.appendChild(td);
+        });
+
+        // Задача n14
+        let ul14 = document.querySelector('#ul14');
+        ul14.addEventListener('click', function(e) {
+            if (e.target.tagName === 'LI') {
+                if (e.target.style.backgroundColor === 'red') {
+                    e.target.style.backgroundColor = '';
+                } else {
+                    e.target.style.backgroundColor = 'red';
+                }
+            }
+        });
+
+        // Задача n15
+        let arr15 = ['Элемент 1', 'Элемент 2', 'Элемент 3'];
+        
+        // №1 - Список из массива
+        let ul15_1 = document.querySelector('#ul15-1');
+        arr15.forEach(item => {
+            let li = document.createElement('li');
+            li.textContent = item;
+            ul15_1.appendChild(li);
+        });
+        
+        // №2 - Список с редактированием
+        let ul15_2 = document.querySelector('#ul15-2');
+        arr15.forEach(item => {
+            let li = document.createElement('li');
+            li.textContent = item;
+            li.onclick = function() {
+                if (this.querySelector('input') === null) {
+                    let text = this.textContent;
+                    this.innerHTML = '';
+                    let input = document.createElement('input');
+                    input.type = 'text';
+                    input.value = text;
+                    input.onblur = function() {
+                        li.textContent = this.value;
+                    };
+                    input.onkeypress = function(e) {
+                        if (e.key === 'Enter') {
+                            this.blur();
+                        }
+                    };
+                    this.appendChild(input);
+                    input.focus();
+                }
+            };
+            ul15_2.appendChild(li);
+        });
+        
+        // №3 и №4 - Список с добавлением, удалением и перечеркиванием
+        let ul15_3 = document.querySelector('#ul15-3');
+        let ul15_4 = document.querySelector('#ul15-4');
+        
+        function createListItem(text) {
+            let li = document.createElement('li');
+            li.textContent = text;
+            
+            li.onclick = function(e) {
+                if (e.target.tagName !== 'A' && this.querySelector('input') === null) {
+                    let text = this.firstChild.textContent;
+                    this.innerHTML = '';
+                    let input = document.createElement('input');
+                    input.type = 'text';
+                    input.value = text;
+                    input.onblur = function() {
+                        li.innerHTML = this.value;
+                        addActionsToLi(li);
+                    };
+                    input.onkeypress = function(e) {
+                        if (e.key === 'Enter') {
+                            this.blur();
+                        }
+                    };
+                    this.appendChild(input);
+                    input.focus();
+                }
+            };
+            
+            addActionsToLi(li);
+            return li;
+        }
+        
+        function addActionsToLi(li) {
+            let deleteLink = document.createElement('a');
+            deleteLink.href = '#';
+            deleteLink.textContent = ' удалить';
+            deleteLink.style.marginLeft = '10px';
+            deleteLink.onclick = function(e) {
+                e.preventDefault();
+                li.remove();
+            };
+            li.appendChild(deleteLink);
+            
+            let strikeLink = document.createElement('a');
+            strikeLink.href = '#';
+            strikeLink.textContent = ' перечеркнуть';
+            strikeLink.style.marginLeft = '10px';
+            strikeLink.onclick = function(e) {
+                e.preventDefault();
+                if (li.style.textDecoration === 'line-through') {
+                    li.style.textDecoration = 'none';
+                    strikeLink.textContent = ' перечеркнуть';
+                } else {
+                    li.style.textDecoration = 'line-through';
+                    strikeLink.textContent = ' восстановить';
+                }
+            };
+            li.appendChild(strikeLink);
+        }
+        
+        arr15.forEach(item => {
+            ul15_3.appendChild(createListItem(item));
+            ul15_4.appendChild(createListItem(item));
+        });
+        
+        function addNewItem() {
+            let input = document.querySelector('#newItemInput');
+            if (input.value.trim() !== '') {
+                ul15_3.appendChild(createListItem(input.value));
+                ul15_4.appendChild(createListItem(input.value));
+                input.value = '';
+            }
+        }
+        
+        // №6-9 - Таблица работников
+        let table15_6 = document.querySelector('#table15-6');
+        
+        function createEmployeeRow(emp) {
+            let tr = document.createElement('tr');
+            
+            ['name', 'age', 'salary'].forEach(field => {
+                let td = document.createElement('td');
+                td.textContent = emp[field];
+                td.onclick = function() {
+                    if (this.querySelector('input') === null) {
+                        let text = this.textContent;
+                        this.innerHTML = '';
+                        let input = document.createElement('input');
+                        input.type = field === 'age' || field === 'salary' ? 'number' : 'text';
+                        input.value = text;
+                        input.onblur = function() {
+                            td.textContent = this.value;
+                        };
+                        input.onkeypress = function(e) {
+                            if (e.key === 'Enter') {
+                                this.blur();
+                            }
+                        };
+                        this.appendChild(input);
+                        input.focus();
+                    }
+                };
+                tr.appendChild(td);
+            });
+            
+            let tdDelete = document.createElement('td');
+            let deleteLink = document.createElement('a');
+            deleteLink.href = '#';
+            deleteLink.textContent = 'удалить';
+            deleteLink.onclick = function(e) {
+                e.preventDefault();
+                tr.remove();
+            };
+            tdDelete.appendChild(deleteLink);
+            tr.appendChild(tdDelete);
+            
+            return tr;
+        }
+        
+        let headerRow15 = document.createElement('tr');
+        ['Имя', 'Возраст', 'Зарплата', 'Действия'].forEach(text => {
+            let th = document.createElement('th');
+            th.textContent = text;
+            headerRow15.appendChild(th);
+        });
+        table15_6.appendChild(headerRow15);
+        
+        employees.forEach(emp => {
+            table15_6.appendChild(createEmployeeRow(emp));
+        });
+        
+        function addEmployee() {
+            let name = document.querySelector('#nameInput').value;
+            let age = document.querySelector('#ageInput').value;
+            let salary = document.querySelector('#salaryInput').value;
+            
+            if (name && age && salary) {
+                let emp = {name, age, salary};
+                table15_6.appendChild(createEmployeeRow(emp));
+                
+                document.querySelector('#nameInput').value = '';
+                document.querySelector('#ageInput').value = '';
+                document.querySelector('#salaryInput').value = '';
+            }
+        }
+        
+        // №10-13 - 
+        let ul15_10 = document.querySelector('#ul15-10');
+        
+        function createEmployeeListItem(emp) {
+            let li = document.createElement('li');
+            li.innerHTML = `
+                <span class="name">${emp.name}</span>, 
+                <span class="age">${emp.age}</span> лет, 
+                <span class="salary">${emp.salary}</span>$
+            `;
+            
+            ['name', 'age', 'salary'].forEach(field => {
+                let span = li.querySelector(`.${field}`);
+                span.onclick = function() {
+                    if (this.querySelector('input') === null) {
+                        let text = this.textContent;
+                        this.innerHTML = '';
+                        let input = document.createElement('input');
+                        input.type = field === 'age' || field === 'salary' ? 'number' : 'text';
+                        input.value = text;
+                        input.onblur = function() {
+                            span.textContent = this.value;
+                        };
+                        input.onkeypress = function(e) {
+                            if (e.key === 'Enter') {
+                                this.blur();
+                            }
+                        };
+                        this.appendChild(input);
+                        input.focus();
+                    }
+                };
+            });
+            
+            let deleteLink = document.createElement('a');
+            deleteLink.href = '#';
+            deleteLink.textContent = ' удалить';
+            deleteLink.style.marginLeft = '10px';
+            deleteLink.onclick = function(e) {
+                e.preventDefault();
+                li.remove();
+            };
+            li.appendChild(deleteLink);
+            
+            return li;
+        }
+        
+        employees.forEach(emp => {
+            ul15_10.appendChild(createEmployeeListItem(emp));
+        });
+        
+        function addEmployeeToList() {
+            let name = document.querySelector('#newName').value;
+            let age = document.querySelector('#newAge').value;
+            let salary = document.querySelector('#newSalary').value;
+            
+            if (name && age && salary) {
+                let emp = {name, age, salary};
+                ul15_10.appendChild(createEmployeeListItem(emp));
+                
+                document.querySelector('#newName').value = '';
+                document.querySelector('#newAge').value = '';
+                document.querySelector('#newSalary').value = '';
+            }
+        }
+    </script>
+</body>
+</html>

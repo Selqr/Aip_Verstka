@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM и JavaScript</title>
+    <style>
+        .demo-section {
+            margin: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .demo-element {
+            padding: 15px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+        }
+        .content { background-color: #e3f2fd; }
+        .no-gap { margin: 0; }
+        .highlight { background-color: #fff9c4; }
+        .border-red { border: 2px solid #f44336; }
+        .text-center { text-align: center; }
+        .padding-large { padding: 25px; }
+        .rounded-corners { border-radius: 10px; }
+        .shadow-effect { box-shadow: 3px 3px 10px rgba(0,0,0,0.2); }
+        .demo-button {
+            padding: 10px 15px;
+            margin: 5px;
+            cursor: pointer;
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+        .result-box {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <p id="elem1">Нажми</p>
+    <p id="elem2">проекк</p>
+    <p id="elem3">нукро</p>
+    <p id="elem4">нукро</p>
+    <h1 id="main-heading">Привет, мир!</h1>
+    <p class="description">Это параграф для работы с DOM.</p>
+    <div class="container">
+        <p>Еще один текст внутри контейнера.</p>
+        <button id="my-button">Нажми меня</button>
+    </div>
+        <p class="www">Текст первого абзаца</p>
+    <p class="www">Текст второго абзаца</p>
+    <p class="www">Текст третьего абзаца</p>
+     <input id="button1" type="submit" value="Кнопка 1">
+    <input id="button2" type="submit" value="Кнопка 2">
+    <input id="button3" type="submit" value="Кнопка 3">
+    <div id="output"></div>
+    <button id="dblClickBtn">Дважды кликни на меня</button>
+    <button id="hoverBtn">Наведи на меня курсор</button>
+    <div id="hoverOutput" style="margin-top: 10px;"></div>
+    
+    <script>
+        console.log("Страница загружена!");
+        let heading = document.getElementById("main-heading");
+        heading.style.color = "blue"; 
+        let button = document.getElementById("my-button");
+        button.addEventListener("click", function() {
+            alert("Кнопка нажата!");
+        });
+        let allParagraphs = document.querySelectorAll('p[id^="elem"]');
+        allParagraphs.forEach(function(paragraph, index) {
+            console.log("Элемент " + (index+1) + ":", paragraph);
+            console.log("  ID: " + paragraph.id);
+            console.log("  Текст: " + paragraph.textContent);
+            });
+        let firstWwwParagraph = document.querySelector('.www'); 
+        console.log("Первый абзац с классом .www:", firstWwwParagraph);
+        console.log("Текст элемента:", firstWwwParagraph.textContent);
+        let allWwwParagraphs = document.querySelectorAll('.www');
+        console.log("Всего элементов с классом .www:", allWwwParagraphs.length);
+        console.log("Первый элемент в коллекции:", allWwwParagraphs[0]);
+        console.log("Совпадают ли:", firstWwwParagraph === allWwwParagraphs[0]);
+        let btnFirst = document.querySelector('#button1');
+        let btnSecond = document.querySelector('#button2');
+        let btnThird = document.querySelector('#button3');
+        let outputDiv = document.querySelector('#output');
+        btnFirst.addEventListener('click', function() {
+            console.log(1);
+            outputDiv.innerHTML = '<p>Вы нажали кнопку 1</p>';
+        });
+        btnSecond.addEventListener('click', function() {
+            console.log(2);
+            outputDiv.innerHTML = '<p>Вы нажали кнопку 2</p>';
+        });
+        btnThird.addEventListener('click', function() {
+            console.log(3);
+            outputDiv.innerHTML = '<p>Вы нажали кнопку 3</p>';
+        });
+         document.querySelector('#button1').addEventListener('click', function() {
+            console.log(1);
+        });
+        document.querySelector('#button2').addEventListener('click', function() {
+            console.log(2);
+        });
+        document.querySelector('#button3').addEventListener('click', function() {
+            console.log(3);
+        });
+
+            function func() {
+            console.log('message');
+        }
+        document.querySelector('#elem1').addEventListener('click', func);
+        document.querySelector('#elem2').addEventListener('click', func);
+        document.querySelector('#elem3').addEventListener('click', func);
+        function func1() {
+            console.log('1');
+        }
+        function func2() {
+            console.log('2');
+        }
+        function func3() {
+            console.log('3');
+        }
+        let paragraph = document.querySelector('#elem');
+        paragraph.addEventListener('click', func1);
+        paragraph.addEventListener('click', func2);
+        paragraph.addEventListener('click', func3);
+        let doubleClickButton = document.getElementById('dblClickBtn');
+        doubleClickButton.addEventListener('dblclick', function() {
+            console.log('Двойной клик зафиксирован!');
+            alert('Вы выполнили двойной клик!');
+        });
+                let hoverButton = document.getElementById('hoverBtn');
+        let outputDiver = document.getElementById('hoverOutput');
+        
+        hoverButton.addEventListener('mouseover', function() {
+            console.log('Курсор наведен на кнопку');
+            outputDiver.textContent = 'Курсор находится над кнопкой';
+            hoverButton.style.backgroundColor = 'lightgreen';
+        });
+    </script>
+        <p id="myParagraph">Это текст абзаца, который нужно прочитать</p>
+    <button id="readBtn">Прочитать текст</button>
+    
+    <script>
+        let paragraphElement = document.getElementById('myParagraph');
+        let readButton = document.getElementById('readBtn');
+        
+        readButton.addEventListener('click', function() {
+            let paragraphText = paragraphElement.textContent;
+            console.log('Текст абзаца:', paragraphText);
+            alert('Текст абзаца: ' + paragraphText);
+        });
+    </script>
+        <p id="targetParagraph">Старый текст абзаца</p>
+    <button id="writeBtn">Изменить текст</button>
+    
+    <script>
+        let targetPara = document.getElementById('targetParagraph');
+        let writeButton = document.getElementById('writeBtn');
+        
+        writeButton.addEventListener('click', function() {
+            targetPara.textContent = 'Новый текст абзаца, записанный через JavaScript!';
+            console.log('Текст абзаца изменен');
+        });
+    </script>
+        <p id="htmlParagraph">
+        Обычный текст и <span style="color: blue;">текст с тегами</span>
+    </p>
+    <button id="readHtmlBtn">Прочитать HTML код</button>
+    
+    <script>
+        let paraElement = document.getElementById('htmlParagraph');
+        let readHtmlButton = document.getElementById('readHtmlBtn');
+        
+        readHtmlButton.addEventListener('click', function() {
+            let htmlContent = paraElement.innerHTML;
+            console.log('HTML код абзаца:', htmlContent);
+            alert('HTML код:\n' + htmlContent);
+        });
+    </script>
+        <p id="boldParagraph">Исходный текст абзаца</p>
+    <button id="makeBoldBtn">Сделать текст жирным</button>
+    
+    <script>
+        let targetParae = document.getElementById('boldParagraph');
+        let boldButton = document.getElementById('makeBoldBtn');
+        
+        boldButton.addEventListener('click', function() {
+            targetParae.innerHTML = '<strong>Новый жирный текст, записанный через innerHTML</strong>';
+            console.log('Текст абзаца изменен на жирный');
+        });
+    </script>
+        <input id="elem" type="email" placeholder="Введите email">
+    <button id="showTypeBtn">Показать тип инпута</button>
+    <p id="result1"></p>
+    
+    <script>
+        let inputElement = document.getElementById('elem');
+        let showTypeButton = document.getElementById('showTypeBtn');
+        let resultParagraph1 = document.getElementById('result1');
+        
+        showTypeButton.addEventListener('click', function() {
+            let inputType = inputElement.type;
+            console.log('Тип инпута:', inputType);
+            resultParagraph1.textContent = 'Тип инпута: ' + inputType;
+        });
+    </script>
+        <a id="myLink" href="https://www.example.com" target="_blank">Пример ссылки</a>
+    <button id="showHrefBtn">Показать адрес ссылки</button>
+    <p id="hrefOutput"></p>
+    
+    <script>
+        let linkElement = document.getElementById('myLink');
+        let showHrefButton = document.getElementById('showHrefBtn');
+        let hrefOutput = document.getElementById('hrefOutput');
+        
+        showHrefButton.addEventListener('click', function() {
+            let linkHref = linkElement.href;
+            console.log('Адрес ссылки:', linkHref);
+            hrefOutput.textContent = 'Адрес ссылки: ' + linkHref;
+        });
+    </script>
+        <input id="textInput" type="text" placeholder="Текст появится здесь">
+    <button id="addTextBtn">Добавить текст</button>
+    
+    <script>
+        let inputField = document.getElementById('textInput');
+        let addButton = document.getElementById('addTextBtn');
+        
+        addButton.addEventListener('click', function() {
+            inputField.value = 'Какой-нибудь текст, добавленный через JavaScript';
+            console.log('Текст добавлен в инпут');
+        });
+    </script>
+        <input id="sourceInput" type="text" placeholder="Введите текст">
+    <button id="copyTextBtn">Скопировать текст</button>
+    <p id="resultParagraph">Текст появится здесь</p>
+    
+    <script>
+        let sourceInput = document.getElementById('sourceInput');
+        let copyButton = document.getElementById('copyTextBtn');
+        let resultPara = document.getElementById('resultParagraph');
+        copyButton.addEventListener('click', function() {
+            let inputText = sourceInput.value;
+            resultPara.textContent = inputText;
+            console.log('Текст скопирован: "' + inputText + '"');
+        });
+    </script>
+        <input id="numberInput" type="number" placeholder="Введите число">
+    <button id="calculateBtn">Вычислить квадрат</button>
+    <input id="resultInput" type="text" placeholder="Здесь появится квадрат числа" readonly>
+    
+    <script>
+        let numberInput = document.getElementById('numberInput');
+        let calculateButton = document.getElementById('calculateBtn');
+        let resultInput = document.getElementById('resultInput');
+        
+        calculateButton.addEventListener('click', function() {
+            let inputValue = numberInput.value;
+            let number = parseFloat(inputValue);
+            if (!isNaN(number)) {
+                let square = number * number;
+                resultInput.value = square;
+                console.log('Квадрат числа', number, 'равен', square);
+            } else {
+                resultInput.value = 'Введите корректное число!';
+                console.log('Ошибка: введено не число');
+            }
+        });
+    </script>
+        <input id="focusInput" type="text" placeholder="Кликните сюда">
+    <p id="status1">Статус: нет фокуса</p>
+    
+    <script>
+        let focusInput = document.getElementById('focusInput');
+        let statusPara1 = document.getElementById('status1');
+        focusInput.addEventListener('focus', function() {
+            this.value = '1';
+            statusPara1.textContent = 'Статус: инпут получил фокус (записано число 1)';
+            statusPara1.style.color = 'green';
+            console.log('Инпут получил фокус, записано число 1');
+        });
+        focusInput.addEventListener('blur', function() {
+            this.value = '2';
+            statusPara1.textContent = 'Статус: инпут потерял фокус (записано число 2)';
+            statusPara1.style.color = 'red';
+            console.log('Инпут потерял фокус, записано число 2');
+        });
+    </script>
+        <input id="numberInput" type="number" placeholder="Введите число">
+    <p id="result2">Результат появится здесь</p>
+    
+    <script>
+        let numberInputes = document.getElementById('numberInput');
+        let resultPara2 = document.getElementById('result2');
+        numberInputes.addEventListener('blur', function() {
+            let inputValue = this.value;
+            let number = parseFloat(inputValue);
+            
+            if (!isNaN(number) && inputValue !== '') {
+                let square = number * number;
+                resultPara2.textContent = `Квадрат числа ${number} равен ${square}`;
+                resultPara2.style.color = 'green';
+                console.log(`Квадрат ${number} = ${square}`);
+            } else {
+                resultPara2.textContent = 'Пожалуйста, введите корректное число';
+                resultPara2.style.color = 'red';
+                console.log('Ошибка: введено не число');
+            }
+        });
+    </script>
+        <div id="elem" class="aaa bbb ccc">Элемент с классами aaa, bbb и ccc</div>
+    <button id="getClassesBtn">Получить массив классов</button>
+    <div id="result3"></div>
+    
+    <script>
+        let elemDiv = document.getElementById('elem');
+        let getClassesButton = document.getElementById('getClassesBtn');
+        let resultDiv3 = document.getElementById('result3');
+        
+        getClassesButton.addEventListener('click', function() {
+            // Получаем строку с классами
+            let classString = elemDiv.className;
+            
+            // Разбиваем строку по пробелам в массив
+            let classArray = classString.split(' ');
+            
+            // Убираем пустые строки (на случай лишних пробелов)
+            classArray = classArray.filter(function(className) {
+                return className.trim() !== '';
+            });
+            
+            console.log('Массив классов:', classArray);
+            console.log('Количество классов:', classArray.length);
+            
+            // Выводим результат
+            resultDiv3.innerHTML = `
+                <h3>Результат:</h3>
+                <p>Строка классов: "${classString}"</p>
+                <p>Массив классов: [${classArray.map(c => `"${c}"`).join(', ')}]</p>
+                <p>Количество классов: ${classArray.length}</p>
+                <ul>
+                    ${classArray.map(className => `<li>${className}</li>`).join('')}
+                </ul>
+            `;
+        });
+    </script>
+    <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Работа с атрибутом class</title>
+    <style>
+        .demo-section {
+            margin: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .demo-element {
+            padding: 15px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+        }
+        .content { background-color: #e3f2fd; }
+        .no-gap { margin: 0; }
+        .highlight { background-color: #fff9c4; }
+        .border-red { border: 2px solid #f44336; }
+        .text-center { text-align: center; }
+        .padding-large { padding: 25px; }
+        .rounded-corners { border-radius: 10px; }
+        .shadow-effect { box-shadow: 3px 3px 10px rgba(0,0,0,0.2); }
+        .demo-button {
+            padding: 10px 15px;
+            margin: 5px;
+            cursor: pointer;
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+        .result-box {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Исключения при работе с атрибутами</h1>
+    
+    <div class="demo-section">
+        <h2>1. Чтение атрибута class</h2>
+        <div id="elem1" class="content no-gap highlight">Div с классами "content", "no-gap" и "highlight"</div>
+        <button id="btn1" class="demo-button">Показать классы</button>
+        <div id="result1" class="result-box"></div>
+    </div>
+    <div class="demo-section">
+        <h2>2. Запись в атрибут class</h2>
+        <div id="elem2" class="demo-element">Этот div будет получать разные классы</div>
+        <button id="btn2-add" class="demo-button">Добавить класс border-red</button>
+        <button id="btn2-add-multiple" class="demo-button">Добавить несколько классов</button>
+        <button id="btn2-reset" class="demo-button">Сбросить классы</button>
+        <div id="result2" class="result-box"></div>
+    </div>
+    
+    <div class="demo-section">
+        <h2>3. Получение массива CSS классов</h2>
+        <div id="elem3" class="content highlight border-red text-center padding-large">
+            Div с несколькими классами
+        </div>
+        <button id="btn3-get-array" class="demo-button">Получить массив классов</button>
+        <div id="result3" class="result-box"></div>
+    </div>
+    <div class="demo-section">
+        <h2>Дополнительно: Работа с classList</h2>
+        <div id="elem4" class="demo-element">Элемент для демонстрации classList</div>
+        <button id="btn4-add" class="demo-button">classList.add()</button>
+        <button id="btn4-remove" class="demo-button">classList.remove()</button>
+        <button id="btn4-toggle" class="demo-button">classList.toggle()</button>
+        <button id="btn4-contains" class="demo-button">classList.contains()</button>
+        <div id="result4" class="result-box"></div>
+    </div>
+    
+    <script>
+
+        let elem1 = document.getElementById('elem1');
+        let btn1 = document.getElementById('btn1');
+        let result1 = document.getElementById('result1');
+        
+        btn1.addEventListener('click', function() {
+            let classes = elem1.className;
+            result1.innerHTML = `
+                <p><strong>className:</strong> "${classes}"</p>
+                <p><strong>Длина строки:</strong> ${classes.length} символов</p>
+            `;
+            console.log('Задание 1 - Классы элемента:', classes);
+        });
+
+        let elem2 = document.getElementById('elem2');
+        let btn2Add = document.getElementById('btn2-add');
+        let btn2AddMultiple = document.getElementById('btn2-add-multiple');
+        let btn2Reset = document.getElementById('btn2-reset');
+        let result2 = document.getElementById('result2');
+        
+        let originalClasses2 = elem2.className;
+        
+        btn2Add.addEventListener('click', function() {
+            elem2.className = 'demo-element border-red';
+            updateResult2();
+            console.log('Задание 2 - Добавлен класс border-red');
+        });
+        
+        btn2AddMultiple.addEventListener('click', function() {
+            elem2.className = 'demo-element border-red text-center rounded-corners shadow-effect';
+            updateResult2();
+            console.log('Задание 2 - Добавлены несколько классов');
+        });
+        
+        btn2Reset.addEventListener('click', function() {
+            elem2.className = originalClasses2;
+            updateResult2();
+            console.log('Задание 2 - Классы сброшены');
+        });
+        
+        function updateResult2() {
+            result2.innerHTML = `
+                <p><strong>Текущие классы:</strong> "${elem2.className}"</p>
+            `;
+        }
+        
+        let elem3 = document.getElementById('elem3');
+        let btn3GetArray = document.getElementById('btn3-get-array');
+        let result3 = document.getElementById('result3');
+        
+        btn3GetArray.addEventListener('click', function() {
+            let classString = elem3.className;
+            let classArray = classString.split(' ').filter(c => c.trim() !== '');
+            
+            result3.innerHTML = `
+                <p><strong>Исходная строка:</strong> "${classString}"</p>
+                <p><strong>Массив классов:</strong></p>
+                <ul>
+                    ${classArray.map(c => `<li>${c}</li>`).join('')}
+                </ul>
+                <p><strong>Количество классов:</strong> ${classArray.length}</p>
+                <p><strong>Есть ли класс 'highlight'?:</strong> ${classArray.includes('highlight') ? 'Да' : 'Нет'}</p>
+            `;
+            console.log('Задание 3 - Массив классов:', classArray);
+        });
+        
+        let elem4 = document.getElementById('elem4');
+        let btn4Add = document.getElementById('btn4-add');
+        let btn4Remove = document.getElementById('btn4-remove');
+        let btn4Toggle = document.getElementById('btn4-toggle');
+        let btn4Contains = document.getElementById('btn4-contains');
+        let result4 = document.getElementById('result4');
+        
+        btn4Add.addEventListener('click', function() {
+            elem4.classList.add('rounded-corners', 'shadow-effect');
+            updateResult4();
+            console.log('classList - Добавлены классы rounded-corners и shadow-effect');
+        });
+        
+        btn4Remove.addEventListener('click', function() {
+            elem4.classList.remove('shadow-effect');
+            updateResult4();
+            console.log('classList - Удален класс shadow-effect');
+        });
+        
+        btn4Toggle.addEventListener('click', function() {
+            elem4.classList.toggle('highlight');
+            updateResult4();
+            console.log('classList - Переключен класс highlight');
+        });
+        
+        btn4Contains.addEventListener('click', function() {
+            let hasRounded = elem4.classList.contains('rounded-corners');
+            let hasHighlight = elem4.classList.contains('highlight');
+            
+            result4.innerHTML += `
+                <p>Есть класс 'rounded-corners'? ${hasRounded ? 'Да' : 'Нет'}</p>
+                <p>Есть класс 'highlight'? ${hasHighlight ? 'Да' : 'Нет'}</p>
+            `;
+            console.log('classList - Проверка классов:', {rounded: hasRounded, highlight: hasHighlight});
+        });
+        
+        function updateResult4() {
+            let classes = Array.from(elem4.classList);
+            result4.innerHTML = `
+                <p><strong>Текущие классы (через classList):</strong> ${classes.join(', ')}</p>
+                <p><strong>Количество:</strong> ${classes.length}</p>
+            `;
+        }
+    </script>
+</body>
+</html>
+</body>
+</html>

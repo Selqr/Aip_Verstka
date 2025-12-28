@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Select</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .box {
+            background: white;
+            padding: 25px;
+            margin: 20px auto;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            max-width: 500px;
+            transition: transform 0.3s;
+        }
+        
+        .box:hover {
+            transform: translateY(-3px);
+        }
+        
+        h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+        }
+        
+        select, input, button {
+            width: 100%;
+            padding: 14px;
+            margin: 10px 0;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        select:focus, input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        
+        button {
+            background: linear-gradient(to right, #3498db, #2ecc71);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        
+        button:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .button-group button {
+            flex: 1;
+        }
+        
+        p {
+            margin: 15px 0;
+            padding: 15px;
+            border-radius: 8px;
+            background: #f8f9fa;
+            border-left: 4px solid #3498db;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .leap {
+            color: #27ae60;
+            font-weight: bold;
+            border-left-color: #27ae60;
+        }
+        
+        .workday {
+            color: #3498db;
+            border-left-color: #3498db;
+        }
+        
+        .weekend {
+            color: #e74c3c;
+            border-left-color: #e74c3c;
+        }
+        
+        .selected {
+            background: #e8f5e9;
+            border-left-color: #2ecc71;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h3>1. Високосный год</h3>
+        <select id="year1">
+            <option value="2020">2020</option>
+            <option value="2021">2021</option>
+            <option value="2022">2022</option>
+            <option value="2023">2023</option>
+            <option value="2024">2024</option>
+        </select>
+        <p id="result1"></p>
+        <button onclick="checkYear()">Проверить</button>
+    </div>
+
+    <div class="box">
+        <h3>2. Рабочие дни</h3>
+        <select id="days">
+            <option value="1">Понедельник</option>
+            <option value="2">Вторник</option>
+            <option value="3">Среда</option>
+            <option value="4">Четверг</option>
+            <option value="5">Пятница</option>
+            <option value="6">Суббота</option>
+            <option value="7">Воскресенье</option>
+        </select>
+        <p id="result2"></p>
+    </div>
+
+    <div class="box">
+        <h3>3. Текущий месяц</h3>
+        <select id="months">
+            <option value="1">Январь</option>
+            <option value="2">Февраль</option>
+            <option value="3">Март</option>
+            <option value="4">Апрель</option>
+            <option value="5">Май</option>
+            <option value="6">Июнь</option>
+            <option value="7">Июль</option>
+            <option value="8">Август</option>
+            <option value="9">Сентябрь</option>
+            <option value="10">Октябрь</option>
+            <option value="11">Ноябрь</option>
+            <option value="12">Декабрь</option>
+        </select>
+    </div>
+
+    <div class="box">
+        <h3>4. Выбор по номеру</h3>
+        <input type="number" id="numInput" placeholder="0-5" min="0" max="5">
+        <select id="list1">
+            <option>Пункт 0</option>
+            <option>Пункт 1</option>
+            <option>Пункт 2</option>
+            <option>Пункт 3</option>
+            <option>Пункт 4</option>
+            <option>Пункт 5</option>
+        </select>
+    </div>
+
+    <div class="box">
+        <h3>5. Добавление значений</h3>
+        <select id="list2">
+            <option value="1">Пункт</option>
+            <option value="2">Элемент</option>
+            <option value="3">Вариант</option>
+            <option value="4">Выбор</option>
+        </select>
+    </div>
+
+    <div class="box">
+        <h3>6. Выбор последнего</h3>
+        <select id="list3">
+            <option>Первый</option>
+            <option>Второй</option>
+            <option>Третий</option>
+            <option>Четвертый</option>
+            <option>Пятый</option>
+        </select>
+        <button onclick="selectLast()">Выбрать последний</button>
+        <p id="result3"></p>
+    </div>
+
+    <div class="box">
+        <h3>7. Показать выбранный</h3>
+        <select id="list4">
+            <option>Элемент 1</option>
+            <option>Элемент 2</option>
+            <option selected>Элемент 3</option>
+            <option>Элемент 4</option>
+        </select>
+        <button onclick="showSelected()">Показать</button>
+        <p id="result4" class="selected"></p>
+    </div>
+
+    <div class="box">
+        <h3>8. Восклицательный знак</h3>
+        <select id="list5">
+            <option>Красный</option>
+            <option>Зеленый</option>
+            <option>Синий</option>
+            <option>Желтый</option>
+        </select>
+        <div class="button-group">
+            <button onclick="addExcl()">Добавить !</button>
+            <button onclick="resetTexts()">Сбросить</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            checkYear();
+            updateDayType();
+            document.getElementById('months').value = new Date().getMonth() + 1;
+            
+            const list2 = document.getElementById('list2');
+            Array.from(list2).forEach(opt => opt.textContent += ` [${opt.value}]`);
+            
+            showSelected();
+        });
+
+        function checkYear() {
+            const year = parseInt(document.getElementById('year1').value);
+            const isLeap = (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+            const result = document.getElementById('result1');
+            result.textContent = `${year} год - ${isLeap ? 'високосный' : 'не високосный'}`;
+            result.className = isLeap ? 'leap' : '';
+        }
+
+        function updateDayType() {
+            const day = parseInt(document.getElementById('days').value);
+            const result = document.getElementById('result2');
+            const isWeekend = day >= 6;
+            result.textContent = isWeekend ? 'Выходной день' : 'Рабочий день';
+            result.className = isWeekend ? 'weekend' : 'workday';
+        }
+        document.getElementById('days').addEventListener('change', updateDayType);
+
+        document.getElementById('numInput').addEventListener('blur', function() {
+            const num = parseInt(this.value);
+            const list = document.getElementById('list1');
+            if (!isNaN(num) && num >= 0 && num < list.options.length) {
+                list.selectedIndex = num;
+                list.style.borderColor = '#2ecc71';
+                setTimeout(() => list.style.borderColor = '#ddd', 1000);
+            }
+        });
+
+        function selectLast() {
+            const list = document.getElementById('list3');
+            const lastIdx = list.options.length - 1;
+            list.selectedIndex = lastIdx;
+            document.getElementById('result3').textContent = `Выбран: "${list.options[lastIdx].textContent}"`;
+        }
+
+        function showSelected() {
+            const list = document.getElementById('list4');
+            const selected = list.options[list.selectedIndex];
+            document.getElementById('result4').textContent = `Выбран: ${selected.textContent}`;
+        }
+
+        const originalTexts = [];
+        const list5 = document.getElementById('list5');
+        Array.from(list5).forEach(opt => originalTexts.push(opt.textContent));
+
+        function addExcl() {
+            const selected = list5.options[list5.selectedIndex];
+            selected.textContent = selected.textContent.replace(/!+$/, '') + '!';
+        }
+
+        function resetTexts() {
+            Array.from(list5).forEach((opt, i) => {
+                opt.textContent = originalTexts[i];
+            });
+        }
+    </script>
+</body>
+</html>

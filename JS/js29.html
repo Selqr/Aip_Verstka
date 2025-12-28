@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Таймеры и Интервалы</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .section {
+            margin-bottom: 30px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #f9f9f9;
+        }
+        
+        .section h3 {
+            margin-top: 0;
+            color: #333;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 8px;
+        }
+        
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #45a049;
+        }
+        
+        button.stop {
+            background-color: #f44336;
+        }
+        
+        button.stop:hover {
+            background-color: #d32f2f;
+        }
+        
+        button.single {
+            background-color: #2196F3;
+        }
+        
+        button.single:hover {
+            background-color: #1976D2;
+        }
+        
+        input[type="number"] {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 120px;
+            margin: 0 10px;
+        }
+        
+        .display {
+            display: inline-block;
+            min-width: 50px;
+            padding: 8px 12px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-left: 10px;
+            font-weight: bold;
+        }
+        
+        .timer-active {
+            background-color: #e8f5e9;
+            border-color: #4CAF50;
+        }
+        
+        .error {
+            color: #f44336;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        
+        .status {
+            font-size: 12px;
+            color: #666;
+            margin-left: 10px;
+        }
+        
+        .active {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Демонстрация работы таймеров и интервалов</h2>
+        
+        <!-- Секция 1: Фиксированный интервал -->
+        <div class="section">
+            <h3>1. Фиксированный интервал</h3>
+            <p>Выводит сообщение в консоль каждые 3 секунды</p>
+            <button id="startFixedInterval">Запустить интервал (3 сек)</button>
+            <button id="stopFixedInterval" class="stop">Остановить интервал</button>
+            <span class="status" id="fixedIntervalStatus">Неактивен</span>
+        </div>
+        
+        <!-- Секция 2: Обратный отсчет -->
+        <div class="section">
+            <h3>2. Обратный отсчет от 100</h3>
+            <p>Отсчет от 100 до 0 с отображением на странице</p>
+            <button id="startCountdown">Запустить отсчет от 100</button>
+            <button id="stopCountdown" class="stop">Остановить отсчет</button>
+            <br><br>
+            <span>Текущее значение: </span>
+            <span id="countdownDisplay" class="display">100</span>
+            <span class="status" id="countdownStatus">Неактивен</span>
+        </div>
+        
+        <!-- Секция 3: Одноразовый таймер -->
+        <div class="section">
+            <h3>3. Одноразовый запуск</h3>
+            <p>Таймер работает только один раз после нажатия</p>
+            <button id="startSingleUse" class="single">Запустить одноразовый отсчет</button>
+            <span class="status" id="singleUseStatus">Неактивен</span>
+        </div>
+        
+        <!-- Секция 4: Текущее время -->
+        <div class="section">
+            <h3>4. Отображение текущего времени</h3>
+            <p>Показывает текущие минуты и секунды каждую секунду</p>
+            <button id="startCurrentTime">Показать текущее время</button>
+            <button id="stopCurrentTime" class="stop">Остановить отображение</button>
+            <br><br>
+            <span>Время: </span>
+            <span id="timeDisplay" class="display">--:--</span>
+            <span class="status" id="currentTimeStatus">Неактивен</span>
+        </div>
+        
+        <!-- Секция 5: Инкремент в поле ввода -->
+        <div class="section">
+            <h3>5. Автоматическое увеличение</h3>
+            <p>Увеличивает значение в поле ввода каждую секунду</p>
+            <input type="number" id="elem" value="10">
+            <button id="startIncrement">Запустить увеличение</button>
+            <button id="stopIncrement" class="stop">Остановить</button>
+            <span class="status" id="incrementStatus">Неактивен</span>
+        </div>
+        
+        <!-- Секция 6: Счетчик в параграфе -->
+        <div class="section">
+            <h3>6. Счетчик в параграфе</h3>
+            <p>Увеличивает значение в параграфе каждую секунду</p>
+            <button id="startParagraphCounter">Запустить счетчик</button>
+            <button id="stopParagraphCounter" class="stop">Остановить счетчик</button>
+            <br><br>
+            <p id="counter" class="display">0</p>
+            <span class="status" id="paragraphStatus">Неактивен</span>
+        </div>
+        
+        <!-- Секция 7: Возведение в квадрат -->
+        <div class="section">
+            <h3>7. Возведение в квадрат</h3>
+            <p>Возводит число в квадрат каждую секунду</p>
+            <input type="number" id="numberInput" value="5">
+            <button id="startSquare">Запустить возведение в квадрат</button>
+            <button id="stopSquare" class="stop">Остановить</button>
+            <span class="status" id="squareStatus">Неактивен</span>
+        </div>
+        
+        <!-- Секция 8: Отсчет от введенного числа -->
+        <div class="section">
+            <h3>8. Отсчет от введенного числа</h3>
+            <p>Начинает отсчет от введенного числа при потере фокуса</p>
+            <input type="number" id="countInput" placeholder="Введите число" value="5">
+            <span>Результат: </span>
+            <span id="result" class="display">-</span>
+            <span class="status" id="countInputStatus">Неактивен</span>
+        </div>
+        
+        <!-- Секция 9: Кастомный отсчет -->
+        <div class="section">
+            <h3>9. Пользовательский отсчет</h3>
+            <p>Отсчет от любого введенного числа</p>
+            <input type="number" id="customCountInput" placeholder="Введите число" value="10">
+            <button id="startCustomCountdown">Запустить отсчет</button>
+            <button id="stopCustomCountdown" class="stop">Остановить</button>
+            <br><br>
+            <span>Осталось: </span>
+            <span id="output" class="display">-</span>
+            <span class="status" id="customCountStatus">Неактивен</span>
+        </div>
+        
+        <!-- Сообщение через 10 секунд -->
+        <div class="section">
+            <h3>10. Отложенное сообщение</h3>
+            <p>Сообщение появится через 10 секунд после загрузки страницы</p>
+            <p id="message">Ожидайте сообщение...</p>
+        </div>
+        
+        <!-- Рекурсивный таймер -->
+        <div class="section">
+            <h3>11. Рекурсивный таймер (консоль)</h3>
+            <p>Выводит в консоль с увеличивающимся интервалом</p>
+            <p><small>Работает автоматически, смотрите консоль браузера</small></p>
+        </div>
+    </div>
+
+    <script>
+        let timerIds = {
+            fixedInterval: null,
+            countdown: null,
+            currentTime: null,
+            increment: null,
+            paragraphCounter: null,
+            square: null,
+            countInput: null,
+            customCountdown: null
+        };
+
+        // Обновление статуса
+        function updateStatus(elementId, isActive) {
+            const statusElement = document.getElementById(elementId);
+            statusElement.textContent = isActive ? 'Активен' : 'Неактивен';
+            statusElement.className = isActive ? 'status active' : 'status';
+        }
+
+        // 1. Фиксированный интервал
+        document.getElementById('startFixedInterval').addEventListener('click', () => {
+            if (timerIds.fixedInterval) {
+                clearInterval(timerIds.fixedInterval);
+            }
+            
+            timerIds.fixedInterval = setInterval(() => {
+                console.log('Сообщение каждые 3 секунды - ' + new Date().toLocaleTimeString());
+            }, 3000);
+            
+            updateStatus('fixedIntervalStatus', true);
+            console.log('Фиксированный интервал запущен');
+        });
+
+        document.getElementById('stopFixedInterval').addEventListener('click', () => {
+            if (timerIds.fixedInterval) {
+                clearInterval(timerIds.fixedInterval);
+                timerIds.fixedInterval = null;
+                updateStatus('fixedIntervalStatus', false);
+                console.log('Фиксированный интервал остановлен');
+            }
+        });
+
+        // 2. Обратный отсчет от 100
+        document.getElementById('startCountdown').addEventListener('click', () => {
+            if (timerIds.countdown) {
+                clearInterval(timerIds.countdown);
+            }
+            
+            let count = 100;
+            const display = document.getElementById('countdownDisplay');
+            display.textContent = count;
+            
+            timerIds.countdown = setInterval(() => {
+                count--;
+                display.textContent = count;
+                console.log('Обратный отсчет: ' + count);
+                
+                if (count <= 0) {
+                    clearInterval(timerIds.countdown);
+                    timerIds.countdown = null;
+                    updateStatus('countdownStatus', false);
+                    console.log('Обратный отсчет завершен');
+                }
+            }, 1000);
+            
+            updateStatus('countdownStatus', true);
+        });
+
+        document.getElementById('stopCountdown').addEventListener('click', () => {
+            if (timerIds.countdown) {
+                clearInterval(timerIds.countdown);
+                timerIds.countdown = null;
+                updateStatus('countdownStatus', false);
+                console.log('Обратный отсчет остановлен');
+            }
+        });
+
+        // 3. Одноразовый запуск
+        document.getElementById('startSingleUse').addEventListener('click', function() {
+            updateStatus('singleUseStatus', true);
+            this.disabled = true;
+            
+            let count = 100;
+            console.log('Одноразовый отсчет запущен от 100');
+            
+            const timerId = setInterval(() => {
+                count--;
+                console.log('Одноразовый: ' + count);
+                
+                if (count <= 0) {
+                    clearInterval(timerId);
+                    updateStatus('singleUseStatus', false);
+                    document.getElementById('startSingleUse').disabled = false;
+                    console.log('Одноразовый отсчет завершен');
+                }
+            }, 1000);
+        });
+
+        // 4. Текущее время
+        document.getElementById('startCurrentTime').addEventListener('click', () => {
+            if (timerIds.currentTime) {
+                clearInterval(timerIds.currentTime);
+            }
+            
+            const display = document.getElementById('timeDisplay');
+            
+            function updateTime() {
+                const date = new Date();
+                const minutes = date.getMinutes().toString().padStart(2, '0');
+                const seconds = date.getSeconds().toString().padStart(2, '0');
+                display.textContent = `${minutes}:${seconds}`;
+            }
+            
+            updateTime();
+            timerIds.currentTime = setInterval(updateTime, 1000);
+            
+            updateStatus('currentTimeStatus', true);
+        });
+
+        document.getElementById('stopCurrentTime').addEventListener('click', () => {
+            if (timerIds.currentTime) {
+                clearInterval(timerIds.currentTime);
+                timerIds.currentTime = null;
+                updateStatus('currentTimeStatus', false);
+            }
+        });
+
+        // 5. Инкремент в поле ввода
+        document.getElementById('startIncrement').addEventListener('click', () => {
+            if (timerIds.increment) {
+                clearInterval(timerIds.increment);
+            }
+            
+            const elem = document.getElementById('elem');
+            
+            timerIds.increment = setInterval(() => {
+                elem.value = Number(elem.value) + 1;
+            }, 1000);
+            
+            updateStatus('incrementStatus', true);
+        });
+
+        document.getElementById('stopIncrement').addEventListener('click', () => {
+            if (timerIds.increment) {
+                clearInterval(timerIds.increment);
+                timerIds.increment = null;
+                updateStatus('incrementStatus', false);
+            }
+        });
+
+        // 6. Счетчик в параграфе
+        document.getElementById('startParagraphCounter').addEventListener('click', () => {
+            if (timerIds.paragraphCounter) {
+                clearInterval(timerIds.paragraphCounter);
+            }
+            
+            const p = document.getElementById('counter');
+            let count = Number(p.textContent);
+            
+            timerIds.paragraphCounter = setInterval(() => {
+                count++;
+                p.textContent = count;
+            }, 1000);
+            
+            updateStatus('paragraphStatus', true);
+        });
+
+        document.getElementById('stopParagraphCounter').addEventListener('click', () => {
+            if (timerIds.paragraphCounter) {
+                clearInterval(timerIds.paragraphCounter);
+                timerIds.paragraphCounter = null;
+                updateStatus('paragraphStatus', false);
+            }
+        });
+
+        // 7. Возведение в квадрат
+        document.getElementById('startSquare').addEventListener('click', () => {
+            if (timerIds.square) {
+                clearInterval(timerIds.square);
+            }
+            
+            const input = document.getElementById('numberInput');
+            
+            timerIds.square = setInterval(() => {
+                const value = Number(input.value);
+                input.value = value * value;
+            }, 1000);
+            
+            updateStatus('squareStatus', true);
+        });
+
+        document.getElementById('stopSquare').addEventListener('click', () => {
+            if (timerIds.square) {
+                clearInterval(timerIds.square);
+                timerIds.square = null;
+                updateStatus('squareStatus', false);
+            }
+        });
+
+        // 8. Отсчет от введенного числа (при потере фокуса)
+        document.getElementById('countInput').addEventListener('blur', () => {
+            if (timerIds.countInput) {
+                clearInterval(timerIds.countInput);
+            }
+            
+            const input = document.getElementById('countInput');
+            const result = document.getElementById('result');
+            
+            if (input.value === '') {
+                result.textContent = '-';
+                return;
+            }
+            
+            let count = Number(input.value);
+            result.textContent = count;
+            
+            updateStatus('countInputStatus', true);
+            
+            timerIds.countInput = setInterval(() => {
+                count--;
+                result.textContent = count;
+                
+                if (count <= 0) {
+                    clearInterval(timerIds.countInput);
+                    timerIds.countInput = null;
+                    updateStatus('countInputStatus', false);
+                }
+            }, 1000);
+        });
+
+        // 9. Кастомный отсчет
+        document.getElementById('startCustomCountdown').addEventListener('click', () => {
+            if (timerIds.customCountdown) {
+                clearInterval(timerIds.customCountdown);
+            }
+            
+            const input = document.getElementById('customCountInput');
+            const output = document.getElementById('output');
+            
+            if (input.value === '' || Number(input.value) <= 0) {
+                output.textContent = 'Введите число > 0';
+                return;
+            }
+            
+            let count = Number(input.value);
+            output.textContent = count;
+            
+            updateStatus('customCountStatus', true);
+            
+            timerIds.customCountdown = setInterval(() => {
+                count--;
+                output.textContent = count;
+                
+                if (count <= 0) {
+                    clearInterval(timerIds.customCountdown);
+                    timerIds.customCountdown = null;
+                    updateStatus('customCountStatus', false);
+                }
+            }, 1000);
+        });
+
+        document.getElementById('stopCustomCountdown').addEventListener('click', () => {
+            if (timerIds.customCountdown) {
+                clearInterval(timerIds.customCountdown);
+                timerIds.customCountdown = null;
+                updateStatus('customCountStatus', false);
+            }
+        });
+
+        // 10. Сообщение через 10 секунд
+        setTimeout(() => {
+            document.getElementById('message').textContent = 'Сообщение появилось через 10 секунд после загрузки страницы!';
+            document.getElementById('message').style.color = '#4CAF50';
+            document.getElementById('message').style.fontWeight = 'bold';
+        }, 10000);
+
+        // 11. Рекурсивный таймер (работает автоматически)
+        let counter = 0;
+        function recursiveTimer() {
+            setTimeout(() => {
+                console.log(`Рекурсивный таймер: ${counter} (интервал: ${counter} сек)`);
+                counter++;
+                recursiveTimer();
+            }, counter * 1000);
+        }
+        recursiveTimer();
+
+        // Инициализация статусов
+        document.addEventListener('DOMContentLoaded', () => {
+            const statusElements = document.querySelectorAll('.status');
+            statusElements.forEach(el => {
+                if (!el.textContent.includes('Активен')) {
+                    el.textContent = 'Неактивен';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

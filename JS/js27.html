@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Events Practice</title>
+    <style>
+        .container {
+            margin: 20px 0;
+            padding: 15px;
+            border: 2px solid #333;
+            border-radius: 8px;
+        }
+        
+        button, input, a {
+            margin: 5px;
+            padding: 8px 12px;
+        }
+        
+        ul {
+            padding: 15px;
+            margin: 10px 0;
+        }
+        
+        li {
+            list-style: none;
+            padding: 10px;
+            margin: 5px 0;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        
+        .demo-block {
+            border: 2px solid;
+            padding: 20px;
+            margin: 10px 0;
+        }
+        
+        #coordDisplay {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background: black;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 1000;
+        }
+        
+        #eventDemo > div { margin: 20px 0; padding: 30px; }
+        #outer { border-color: green; background: #d4ffd4; }
+        #middle { border-color: blue; background: #d4e6ff; }
+        #inner { border-color: red; background: #ffd4d4; }
+        
+        #parentBlock {
+            background: #f0f0f0;
+            min-height: 150px;
+        }
+        
+        #hiddenContent {
+            display: none;
+            background: #e3f2fd;
+            border: 2px solid #2196F3;
+            padding: 15px;
+            margin-top: 10px;
+        }
+        #hiddenContent.active { display: block; }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <h2>1. Клики и события мыши</h2>
+        <button id="testBtn">Кнопка для тестов</button>
+        <button id="altBtn">Кликни с Alt</button>
+        
+        <ul id="simpleList">
+            <li>Элемент списка 1</li>
+            <li>Элемент списка 2</li>
+            <li>Элемент списка 3</li>
+        </ul>
+    </div>
+    
+    <div class="container">
+        <h2>2. Координаты и клавиатура</h2>
+        <div id="coordDisplay"></div>
+        
+        <input type="text" id="keyInput" placeholder="Вводите текст здесь">
+        <div id="keyOutput"></div>
+        
+        <div>
+            <input type="number" id="num1" placeholder="Число 1">
+            <input type="number" id="num2" placeholder="Число 2">
+            <a href="#" id="sumLink">Сложить числа</a>
+            <p id="sumResult">Результат: </p>
+        </div>
+    </div>
+    
+    <div class="container">
+        <h2>3. Всплытие событий</h2>
+        <div id="eventDemo">
+            <div id="outer">Внешний блок (зеленый)
+                <div id="middle">Средний блок (голубой)
+                    <div id="inner">Внутренний блок (красный)</div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="focusTest">
+            <input type="text" id="inputA" placeholder="Первый инпут">
+            <input type="text" id="inputB" placeholder="Второй инпут">
+        </div>
+    </div>
+    
+    <div class="container">
+        <h2>4. Делегирование и stopPropagation</h2>
+        <div id="delegationDemo">
+            <ul id="dynamicList">
+                <li>Пункт 1</li>
+                <li>Пункт 2</li>
+                <li>Пункт 3</li>
+            </ul>
+            <button id="addItemBtn">Добавить пункт</button>
+        </div>
+        
+        <div id="parentBlock">
+            <button id="toggleBtn">Показать/скрыть блок</button>
+            <div id="hiddenContent">Скрытый контент</div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <h2>5. Ссылки и формы</h2>
+        <p>
+            <a href="https://google.com" class="demoLink">Google</a>
+            <a href="https://yandex.ru" class="demoLink">Yandex</a>
+            <a href="https://github.com" class="demoLink">GitHub</a>
+        </p>
+        
+        <ul id="ctrlList">
+            <li>Нажмите с Ctrl для +1</li>
+            <li>Нажмите с Shift для +2</li>
+            <li>Просто клик для !</li>
+        </ul>
+    </div>
+
+    <script>
+        const testButton = document.querySelector('#testBtn');
+        const altButton = document.querySelector('#altBtn');
+        const simpleList = document.querySelector('#simpleList');
+        
+        testButton.addEventListener('click', e => {
+            console.log('Одиночный клик', e);
+            e.target.style.background = e.target.style.background === 'green' ? '' : 'green';
+        });
+        
+        testButton.addEventListener('dblclick', e => {
+            e.target.style.background = 'red';
+        });
+        
+        altButton.addEventListener('click', e => {
+            e.target.style.background = e.altKey ? 'red' : '';
+        });
+        
+        simpleList.addEventListener('click', e => {
+            if (e.target.tagName === 'LI') {
+                e.target.textContent += '!';
+            }
+        });
+        
+        const coordDisplay = document.createElement('div');
+        coordDisplay.id = 'coordDisplay';
+        document.body.appendChild(coordDisplay);
+        
+        document.addEventListener('mousemove', e => {
+            coordDisplay.textContent = `client: (${e.clientX}, ${e.clientY}) | page: (${e.pageX}, ${e.pageY})`;
+        });
+        
+        const keyInput = document.querySelector('#keyInput');
+        const keyOutput = document.querySelector('#keyOutput');
+        
+        keyInput.addEventListener('keypress', e => {
+            keyOutput.innerHTML += `Клавиша: "${e.key}" | Код: ${e.code}<br>`;
+        });
+        
+        keyInput.addEventListener('keydown', e => {
+            if (e.code === 'Enter') {
+                document.querySelector('#keyOutput').textContent = `Введено: ${keyInput.value}`;
+                keyInput.value = '';
+            }
+        });
+        
+        const sumLink = document.querySelector('#sumLink');
+        sumLink.addEventListener('click', e => {
+            e.preventDefault();
+            const num1 = parseFloat(document.querySelector('#num1').value) || 0;
+            const num2 = parseFloat(document.querySelector('#num2').value) || 0;
+            document.querySelector('#sumResult').textContent = `Результат: ${num1 + num2}`;
+        });
+        
+        const outer = document.querySelector('#outer');
+        const middle = document.querySelector('#middle');
+        const inner = document.querySelector('#inner');
+        
+        [outer, middle, inner].forEach((el, i) => {
+            const colors = ['Зеленый', 'Голубой', 'Красный'];
+            el.addEventListener('click', () => console.log(`${colors[i]}: click`));
+            el.addEventListener('mouseover', () => console.log(`${colors[i]}: mouseover`));
+            el.addEventListener('contextmenu', e => {
+                e.preventDefault();
+                console.log(`${colors[i]}: contextmenu`);
+            });
+        });
+        
+        const focusTest = document.querySelector('#focusTest');
+        focusTest.addEventListener('focus', () => console.log('Контейнер: focus'));
+        focusTest.addEventListener('click', () => console.log('Контейнер: click'));
+        
+        const dynamicList = document.querySelector('#dynamicList');
+        const addItemBtn = document.querySelector('#addItemBtn');
+        
+        dynamicList.addEventListener('click', e => {
+            const listItem = e.target.closest('li');
+            if (listItem) {
+                listItem.textContent += '!';
+            }
+        });
+        
+        addItemBtn.addEventListener('click', () => {
+            const newItem = document.createElement('li');
+            newItem.textContent = `Новый пункт ${dynamicList.children.length + 1}`;
+            dynamicList.appendChild(newItem);
+        });
+        
+        const parentBlock = document.querySelector('#parentBlock');
+        const toggleBtn = document.querySelector('#toggleBtn');
+        const hiddenContent = document.querySelector('#hiddenContent');
+        
+        toggleBtn.addEventListener('click', e => {
+            hiddenContent.classList.toggle('active');
+            console.log('Блок переключен');
+            e.stopPropagation();
+        });
+        
+        parentBlock.addEventListener('click', () => {
+            hiddenContent.classList.remove('active');
+            console.log('Блок скрыт (клик по родителю)');
+        });
+        
+        const demoLinks = document.querySelectorAll('.demoLink');
+        demoLinks.forEach(link => {
+            link.addEventListener('click', e => {
+                e.preventDefault();
+                e.target.textContent += ` (${e.target.href})`;
+            });
+        });
+        
+        const ctrlList = document.querySelector('#ctrlList');
+        ctrlList.addEventListener('click', e => {
+            if (e.target.tagName === 'LI') {
+                if (e.ctrlKey) e.target.textContent += '1';
+                else if (e.shiftKey) e.target.textContent += '2';
+                else e.target.textContent += '!';
+            }
+        });
+        
+        console.log('Все обработчики установлены. Проверяйте функционал!');
+    </script>
+</body>
+</html>

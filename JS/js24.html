@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+        <div id="container1">
+        Текстовый узел
+        <span>Элемент 1</span>
+    </div>
+    
+    <button onclick="showLastDifference()">Показать разницу lastChild/lastElementChild</button>
+    <pre id="output1"></pre>
+    
+    <script>
+        function showLastDifference() {
+            let divElem = document.getElementById('container1');
+            let result = document.getElementById('output1');
+            
+            let lastChildNode = divElem.lastChild;
+            let lastElementNode = divElem.lastElementChild;
+            
+            result.textContent = 
+                `lastChild: ${lastChildNode.nodeName} (тип: ${lastChildNode.nodeType})\n` +
+                `Значение: "${lastChildNode.nodeValue}"\n\n` +
+                `lastElementChild: ${lastElementNode ? lastElementNode.tagName : 'null'}\n` +
+                `Текст: "${lastElementNode ? lastElementNode.textContent : 'нет'}"`;
+        }
+    </script>
+        <div id="container2">
+        <span id="targetSpan">Целевой элемент</span>
+        Текстовый узел
+        <b>Следующий элемент</b>
+    </div>
+    
+    <button onclick="showNextDifference()">Показать разницу nextSibling/nextElementSibling</button>
+    <pre id="output2"></pre>
+    
+    <script>
+        function showNextDifference() {
+            let spanElem = document.getElementById('targetSpan');
+            let result = document.getElementById('output2');
+            
+            let nextSiblingNode = spanElem.nextSibling;
+            let nextElementNode = spanElem.nextElementSibling;
+            
+            result.textContent = 
+                `nextSibling: ${nextSiblingNode.nodeName} (тип: ${nextSiblingNode.nodeType})\n` +
+                `Значение: "${nextSiblingNode.nodeValue}"\n\n` +
+                `nextElementSibling: ${nextElementNode ? nextElementNode.tagName : 'null'}\n` +
+                `Текст: "${nextElementNode ? nextElementNode.textContent : 'нет'}"`;
+        }
+    </script>
+        <div id="container3">
+        <i>Предыдущий элемент</i>
+        Текстовый узел
+        <span id="referenceSpan">Целевой элемент</span>
+    </div>
+    
+    <button onclick="showPreviousDifference()">Показать разницу previousSibling/previousElementSibling</button>
+    <pre id="output3"></pre>
+    
+    <script>
+        function showPreviousDifference() {
+            let spanElem = document.getElementById('referenceSpan');
+            let result = document.getElementById('output3');
+            
+            let previousSiblingNode = spanElem.previousSibling;
+            let previousElementNode = spanElem.previousElementSibling;
+            
+            result.textContent = 
+                `previousSibling: ${previousSiblingNode.nodeName} (тип: ${previousSiblingNode.nodeType})\n` +
+                `Значение: "${previousSiblingNode.nodeValue}"\n\n` +
+                `previousElementSibling: ${previousElementNode ? previousElementNode.tagName : 'null'}\n` +
+                `Текст: "${previousElementNode ? previousElementNode.textContent : 'нет'}"`;
+        }
+    </script>
+        <div id="elem">txt<b>tag</b><!--com-->txt<b>tag</b><!--com--></div>
+    
+    <button onclick="iterateNodes()">Перебрать узлы</button>
+    <pre id="output"></pre>
+    
+    <script>
+        function iterateNodes() {
+            let divElement = document.getElementById('elem');
+            let result = document.getElementById('output');
+            let outputText = '';
+            for (let node of divElement.childNodes) {
+                outputText += `Тип узла: ${node.nodeType} `;
+                if (node.nodeType === 1) { 
+                    outputText += `[Элемент] Тег: ${node.tagName}, Текст: "${node.textContent}"\n`;
+                } else if (node.nodeType === 3) { 
+                    outputText += `[Текст] Содержимое: "${node.nodeValue}"\n`;
+                } else if (node.nodeType === 8) { 
+                    outputText += `[Комментарий] Содержимое: "${node.nodeValue}"\n`;
+                } else {
+                    outputText += `[Другой тип] ${node.nodeName}\n`;
+                }
+            }
+            
+            result.textContent = outputText;
+            console.log('Все узлы элемента:');
+            for (let node of divElement.childNodes) {
+                console.log(node);
+            }
+        }
+    </script>
+        <div id="elem">txt<b>tag</b><!--com-->txt<b>tag</b><!--com--></div>
+    
+    <button onclick="showNodeNames()">Показать названия узлов</button>
+    <pre id="output"></pre>
+    
+    <script>
+        function showNodeNames() {
+            let divContainer = document.getElementById('elem');
+            let result = document.getElementById('output');
+            let outputText = '';
+            for (let node of divContainer.childNodes) {
+                outputText += `nodeName: "${node.nodeName}"\n`;
+            }
+            
+            result.textContent = outputText;
+            console.log('Названия узлов:');
+            for (let node of divContainer.childNodes) {
+                console.log(node.nodeName);
+            }
+        }
+    </script>
+        <div id="elem">txt<b>tag</b><!--com-->txt<b>tag</b><!--com--></div>
+    
+    <button onclick="filterNodes()">Вывести элементы и текстовые узлы</button>
+    <button onclick="showAll()">Показать все узлы</button>
+    <pre id="output"></pre>
+    
+    <script>
+        function filterNodes() {
+            let container = document.getElementById('elem');
+            let result = document.getElementById('output');
+            let outputText = '';
+            
+            outputText += 'Только элементы (nodeType=1) и текстовые узлы (nodeType=3):\n\n';
+            for (let node of container.childNodes) {
+                if (node.nodeType === 1) { 
+                    outputText += `[Элемент] <${node.tagName}> "${node.textContent}"\n`;
+                } else if (node.nodeType === 3) { 
+                    outputText += `[Текст] "${node.nodeValue.trim()}"\n`;
+                }
+            }
+            
+            result.textContent = outputText;
+            console.log('Элементы и текстовые узлы:');
+            for (let node of container.childNodes) {
+                if (node.nodeType === 1 || node.nodeType === 3) {
+                    console.log(node);
+                }
+            }
+        }
+        
+        function showAll() {
+            let container = document.getElementById('elem');
+            let result = document.getElementById('output');
+            let outputText = 'Все узлы:\n\n';
+            
+            for (let node of container.childNodes) {
+                if (node.nodeType === 1) {
+                    outputText += `[Элемент] <${node.tagName}> "${node.textContent}"\n`;
+                } else if (node.nodeType === 3) {
+                    outputText += `[Текст] "${node.nodeValue}"\n`;
+                } else if (node.nodeType === 8) {
+                    outputText += `[Комментарий] "${node.nodeValue}"\n`;
+                }
+            }
+            result.textContent = outputText;
+        }
+    </script>
+        <div id="elem">txt<b>tag</b><!--com-->txt<b>tag</b><!--com--></div>
+    
+    <button onclick="showAllTexts()">Показать тексты всех узлов</button>
+    <pre id="output1"></pre>
+    
+    <script>
+        function showAllTexts() {
+            let divElem = document.getElementById('elem');
+            let output = document.getElementById('output1');
+            let result = '';
+            
+            result += 'Тексты всех узлов:\n\n';
+            
+            for (let node of divElem.childNodes) {
+                let textContent;
+                if (node.nodeType === 1) { 
+                    textContent = node.textContent;
+                    result += `Элемент <${node.tagName}>: "${textContent}"\n`;
+                } else if (node.nodeType === 3) { 
+                    textContent = node.textContent || node.nodeValue || node.data;
+                    result += `Текст: "${textContent}"\n`;
+                } else if (node.nodeType === 8) { 
+                    textContent = node.nodeValue || node.data;
+                    result += `Комментарий: "${textContent}"\n`;
+                }
+            }
+            
+            output.textContent = result;
+            console.log('Тексты всех узлов:');
+            for (let node of divElem.childNodes) {
+                console.log(getNodeText(node));
+            }
+        }
+        
+        function getNodeText(node) {
+            if (node.nodeType === 1) return node.textContent;
+            if (node.nodeType === 3) return node.textContent || node.nodeValue || node.data;
+            if (node.nodeType === 8) return node.nodeValue || node.data;
+            return '';
+        }
+    </script>
+        <div id="elem">txt<b>tag</b><!--com-->txt<b>tag</b><!--com--></div>
+    
+    <button onclick="showCommentsAndText()">Показать комментарии и текст</button>
+    <pre id="output2"></pre>
+    
+    <script>
+        function showCommentsAndText() {
+            let divContainer = document.getElementById('elem');
+            let output = document.getElementById('output2');
+            let result = '';
+            
+            result += 'Текстовые узлы и комментарии:\n\n';
+            
+            for (let node of divContainer.childNodes) {
+                if (node.nodeType === 3) { 
+                    let text = node.nodeValue || node.data;
+                    result += `Текст: "${text}"\n`;
+                } else if (node.nodeType === 8) {
+                    let comment = node.nodeValue || node.data;
+                    result += `Комментарий: "${comment}"\n`;
+                }
+            }
+            
+            output.textContent = result;
+            console.log('Текстовые узлы и комментарии:');
+            for (let node of divContainer.childNodes) {
+                if (node.nodeType === 3 || node.nodeType === 8) {
+                    let content = node.nodeValue || node.data;
+                    console.log(content);
+                }
+            }
+        }
+    </script>
+        
+    <button onclick="showTextAndElements()">Показать текст и элементы</button>
+    <pre id="output3"></pre>
+    
+    <script>
+        function showTextAndElements() {
+            let mainDiv = document.getElementById('elem');
+            let output = document.getElementById('output3');
+            let result = '';
+            
+            result += 'Текстовые узлы и элементы:\n\n';
+            
+            for (let node of mainDiv.childNodes) {
+                if (node.nodeType === 3) { 
+                    let text = node.nodeValue || node.data;
+                    result += `Текст: "${text}"\n`;
+                } else if (node.nodeType === 1) {
+                    result += `Элемент <${node.tagName}>: "${node.textContent}"\n`;
+                }
+            }
+            
+            output.textContent = result;
+            console.log('Текстовые узлы и элементы:');
+            for (let node of mainDiv.childNodes) {
+                if (node.nodeType === 3) {
+                    console.log('Текст:', node.nodeValue || node.data);
+                } else if (node.nodeType === 1) {
+                    console.log('Элемент:', node.textContent);
+                }
+            }
+        }
+    </script>
+    
+</body>
+</html>

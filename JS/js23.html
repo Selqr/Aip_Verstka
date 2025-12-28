@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+        <style>
+        .first-red { color: #e53935; }
+        .last-red { color: #d32f2f; }
+        .exclaim { font-weight: bold; }
+        .demo-list {
+            border: 2px solid #1976d2;
+            padding: 15px;
+            margin: 20px;
+            width: 200px;
+        }
+        .action-button {
+            padding: 10px 15px;
+            margin: 5px;
+            background-color: #1976d2;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+        <ul id="elem">
+        <li>Первый пункт</li>
+        <li>Второй пункт</li>
+        <li>Третий пункт</li>
+        <li>Четвертый пункт</li>
+        <li>Последний пункт</li>
+    </ul>
+    
+    <script>
+        let listContainer = document.getElementById('elem');
+        let lastChild = listContainer.lastElementChild;
+        lastChild.classList.add('crimson');
+        console.log('Последний потомок окрашен в красный');
+    </script>
+        <ul id="elem">
+        <li>Элемент 1</li>
+        <li>Элемент 2</li>
+        <li>Элемент 3</li>
+        <li>Элемент 4</li>
+        <li>Элемент 5</li>
+    </ul>
+    
+    <script>
+        let parentElement = document.getElementById('elem');
+        let allChildren = parentElement.children;
+        
+        for (let i = 0; i < allChildren.length; i++) {
+            allChildren[i].textContent += '!';
+        }
+        console.log(`Добавлен '!' к ${allChildren.length} элементам`);
+    </script>
+        <h2>Работа с потомками элемента</h2>
+    
+    <ul id="listContainer" class="demo-list">
+        <li>Пункт списка 1</li>
+        <li>Пункт списка 2</li>
+        <li>Пункт списка 3</li>
+        <li>Пункт списка 4</li>
+        <li>Пункт списка 5</li>
+    </ul>
+    
+    <div>
+        <button id="firstBtn" class="action-button">Выделить первый элемент</button>
+        <button id="lastBtn" class="action-button">Выделить последний элемент</button>
+        <button id="allBtn" class="action-button">Добавить '!' ко всем</button>
+        <button id="resetBtn" class="action-button">Сбросить изменения</button>
+    </div>
+    
+    <script>
+        let listElem = document.getElementById('listContainer');
+        let firstBtn = document.getElementById('firstBtn');
+        let lastBtn = document.getElementById('lastBtn');
+        let allBtn = document.getElementById('allBtn');
+        let resetBtn = document.getElementById('resetBtn');
+        let originalTexts = [];
+        let listItems = listElem.children;
+        for (let i = 0; i < listItems.length; i++) {
+            originalTexts.push(listItems[i].textContent);
+        }
+        firstBtn.addEventListener('click', function() {
+            let firstChild = listElem.firstElementChild;
+            firstChild.classList.add('first-red');
+            console.log('Первый элемент выделен:', firstChild.textContent);
+        });
+        lastBtn.addEventListener('click', function() {
+            let lastChild = listElem.lastElementChild;
+            lastChild.classList.add('last-red');
+            console.log('Последний элемент выделен:', lastChild.textContent);
+        });
+        allBtn.addEventListener('click', function() {
+            let children = listElem.children;
+            for (let i = 0; i < children.length; i++) {
+                if (!children[i].textContent.includes('!')) {
+                    children[i].textContent += '!';
+                    children[i].classList.add('exclaim');
+                }
+            }
+            console.log(`Восклицательный знак добавлен к ${children.length} элементам`);
+        });
+        resetBtn.addEventListener('click', function() {
+            let children = listElem.children;
+            for (let i = 0; i < children.length; i++) {
+                children[i].textContent = originalTexts[i];
+                children[i].className = '';
+            }
+            console.log('Изменения сброшены');
+        });
+    </script>
+        <div class="demo-container">
+        <ul>
+            <li>Первый элемент</li>
+            <li>Второй элемент</li>
+            <li id="elem">Третий элемент (целевой)</li>
+            <li>Четвертый элемент</li>
+            <li>Пятый элемент</li>
+        </ul>
+    </div>
+    
+    <button id="highlightParentBtn">Выделить родителя красной границей</button>
+    <button id="highlightGrandparentBtn">Выделить родителя родителя</button>
+    <button id="resetBtn">Сбросить стили</button>
+    
+    <script>
+        let targetElem = document.getElementById('elem');
+        let parentBtn = document.getElementById('highlightParentBtn');
+        let grandparentBtn = document.getElementById('highlightGrandparentBtn');
+        targetElem.classList.add('highlight');
+        parentBtn.addEventListener('click', function() {
+            let parent = targetElem.parentElement;
+            parent.classList.add('parent-border');
+            console.log('Родитель найден:', parent.tagName);
+            console.log('Родитель имеет классы:', parent.className);
+        });
+        grandparentBtn.addEventListener('click', function() {
+            let parent = targetElem.parentElement;
+            let grandparent = parent.parentElement;
+            grandparent.classList.add('parent-border');
+            console.log('Родитель родителя:', grandparent.tagName);
+        });
+        resetBtn.addEventListener('click', function() {
+            let allElements = document.querySelectorAll('*');
+            allElements.forEach(function(element) {
+                element.classList.remove('parent-border');
+            });
+            console.log('Стили сброшены');
+        });
+    </script>
+        <header>
+        <div>
+            <p>
+                <span id="elem">Целевой элемент span</span>
+            </p>
+        </div>
+    </header>
+    
+    <button onclick="findDivParent()">Найти ближайший div родитель</button>
+    <p id="result1"></p>
+    
+    <script>
+        function findDivParent() {
+            let elem = document.getElementById('elem');
+            let divParent = elem.closest('div');
+            
+            if (divParent) {
+                divParent.classList.add('found');
+                document.getElementById('result1').textContent = 
+                    'Найден родитель div с тегом: ' + divParent.tagName;
+                console.log('Найден родитель div:', divParent);
+            } else {
+                document.getElementById('result1').textContent = 'Родитель div не найден';
+            }
+        }
+    </script>
+        <header>
+        <div class="www">
+            <p class="www">
+                <span id="elem">Целевой элемент</span>
+            </p>
+        </div>
+    </header>
+    
+    <button onclick="findWwwParent()">Найти ближайший родитель с классом www</button>
+    <p id="result2"></p>
+    
+    <script>
+        function findWwwParent() {
+            let elem = document.getElementById('elem');
+            let wwwParent = elem.closest('.www');
+            
+            if (wwwParent) {
+                wwwParent.classList.add('found');
+                document.getElementById('result2').textContent = 
+                    'Найден родитель с классом www: ' + wwwParent.tagName;
+                console.log('Найден родитель с классом www:', wwwParent);
+                console.log('Его классы:', wwwParent.className);
+            } else {
+                document.getElementById('result2').textContent = 'Родитель с классом www не найден';
+            }
+        }
+    </script>
+        <ul>
+        <li>Первый</li>
+        <li>Второй</li>
+        <li id="centerItem">Третий (целевой)</li>
+        <li>Четвертый</li>
+        <li>Пятый</li>
+    </ul>
+    
+    <script>
+        let middleElement = document.getElementById('centerItem');
+        let upperNeighbor = middleElement.previousElementSibling;
+        
+        if (upperNeighbor) {
+            upperNeighbor.textContent += '!';
+            console.log('Сосед сверху обновлен:', upperNeighbor.textContent);
+        }
+    </script>
+        <ul>
+        <li>Первый</li>
+        <li>Второй</li>
+        <li id="referenceItem">Третий (целевой)</li>
+        <li>Четвертый</li>
+        <li>Пятый</li>
+    </ul>
+    
+    <script>
+        let mainItem = document.getElementById('referenceItem');
+        let lowerNeighbor = mainItem.nextElementSibling;
+        
+        if (lowerNeighbor) {
+            lowerNeighbor.textContent += '!';
+            console.log('Сосед снизу обновлен:', lowerNeighbor.textContent);
+        }
+    </script>
+        <ul>
+        <li>Первый</li>
+        <li>Второй</li>
+        <li id="coreElement">Третий (целевой)</li>
+        <li>Четвертый</li>
+        <li>Пятый</li>
+    </ul>
+    
+    <script>
+        let primaryElement = document.getElementById('coreElement');
+        let firstNeighbor = primaryElement.nextElementSibling;
+        
+        if (firstNeighbor) {
+            let secondNeighbor = firstNeighbor.nextElementSibling;
+            if (secondNeighbor) {
+                secondNeighbor.textContent += '!';
+                console.log('Второй сосед снизу обновлен:', secondNeighbor.textContent);
+            }
+        }
+    </script>
+        <div id="elem"></div>
+    
+    <script>
+        let containerDiv = document.getElementById('elem');
+        containerDiv.textContent = 'Текст добавлен через getElementById';
+    </script>
+        <ul>
+        <li>Первый элемент</li>
+        <li>Второй элемент</li>
+        <li>Третий элемент</li>
+        <li>Четвертый элемент</li>
+        <li>Пятый элемент</li>
+    </ul>
+    
+    <button onclick="colorItems()">Сделать текст красным</button>
+    
+    <script>
+        function colorItems() {
+            let listItems = document.getElementsByTagName('li');
+            for (let i = 0; i < listItems.length; i++) {
+                listItems[i].classList.add('red-li');
+            }
+            
+            console.log(`Окрашено ${listItems.length} элементов li`);
+        }
+    </script>
+        <p class="www">Элемент 1</p>
+    <p class="www">Элемент 2</p>
+    <p class="www">Элемент 3</p>
+    
+    <button onclick="colorElements()">Сделать текст красным</button>
+    
+    <script>
+        function colorElements() {
+            let elements = document.getElementsByClassName('www');
+            
+            for (let i = 0; i < elements.length; i++) {
+                elements[i].style.color = 'red';
+            }
+            
+            console.log(`Окрашено ${elements.length} элементов с классом 'www'`);
+        }
+    </script>
+    <p class="www">Параграф номер 1</p>
+    <p class="www">Параграф номер 2</p>
+    <p class="www">Параграф номер 3</p>
+    
+    <script>
+        let paragraphCollection = document.getElementsByClassName('www');
+        
+        for (let element of paragraphCollection) {
+            element.classList.add('red-paragraph');
+        }
+    </script>
+        <div id="parent">
+        <p class="www">Элемент www 1</p>
+        <p class="www">Элемент www 2</p>
+        <p class="www">Элемент www 3</p>
+        <p class="ggg">Элемент ggg 1</p>
+        <p class="ggg">Элемент ggg 2</p>
+        <p class="ggg">Элемент ggg 3</p>
+    </div>
+    
+    <button onclick="processElements()">Обработать элементы</button>
+    
+    <script>
+        function processElements() {
+            let container = document.querySelector('#parent');
+            let wwwElements = container.querySelectorAll('.www');
+            for (let element of wwwElements) {
+                element.style.color = 'blue';
+                element.textContent += ' [www]';
+            }
+            let gggElements = container.querySelectorAll('.ggg');
+            for (let element of gggElements) {
+                element.style.color = 'green';
+                element.textContent += ' [ggg]';
+            }
+            console.log(`Найдено ${wwwElements.length} элементов .www`);
+            console.log(`Найдено ${gggElements.length} элементов .ggg`);
+        }
+    </script>
+</body>
+</html>

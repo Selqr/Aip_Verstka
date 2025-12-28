@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styleJS.css">
+</head>
+<body>
+    <input id="elem1" value="text">
+    <script>
+        let elem1 = document.getElementById('elem1');
+        console.log(elem1.getAttribute('value'));
+    </script>
+    
+    <input id="elem2" class="www zzz">
+    <script>
+        let elem2 = document.getElementById('elem2');
+        console.log(elem2.getAttribute('class'));
+    </script>
+        <input id="elem" type="text">
+    <button id="setValueBtn">Установить атрибут value</button>
+    <p id="result1"></p>
+    
+    <script>
+        let setValueButton = document.getElementById('setValueBtn');
+        let result1 = document.getElementById('result1');
+        
+        setValueButton.addEventListener('click', function() {
+            let elem = document.getElementById('elem');
+            elem.setAttribute('value', 'text');
+            console.log('Атрибут value установлен в "text"');
+            result1.textContent = 'Атрибут value установлен в "text"';
+            console.log('getAttribute:', elem.getAttribute('value'));
+            console.log('Свойство .value:', elem.value);
+        });
+    </script>
+    <input id="elem" type="text">
+    <button id="setClassBtn">Установить атрибут class</button>
+    <p id="result2"></p>
+    
+    <script>
+        let setClassButton = document.getElementById('setClassBtn');
+        let result2 = document.getElementById('result2');
+        
+        setClassButton.addEventListener('click', function() {
+            let elem = document.getElementById('elem');
+            elem.setAttribute('class', 'valid');
+            console.log('Атрибут class установлен в "valid"');
+            result2.textContent = 'Атрибут class установлен в "valid"';
+            console.log('getAttribute:', elem.getAttribute('class'));
+            console.log('Свойство .className:', elem.className);
+        });
+    </script>
+    <input id="elem" value="text" placeholder="Оригинальный placeholder">
+    <button id="removeValueBtn">Удалить атрибут value</button>
+    <button id="checkValueBtn">Проверить значение</button>
+    <button id="restoreValueBtn">Восстановить атрибут</button>
+    <p id="result"></p>
+    
+    <script>
+        let elem = document.getElementById('elem');
+        let removeButton = document.getElementById('removeValueBtn');
+        let checkButton = document.getElementById('checkValueBtn');
+        let restoreButton = document.getElementById('restoreValueBtn');
+        let resultPara = document.getElementById('result');
+
+        let originalValue = elem.getAttribute('value');
+        
+        removeButton.addEventListener('click', function() {
+            elem.removeAttribute('value');
+            console.log('Атрибут value удален');
+            resultPara.textContent = 'Атрибут value удален';
+            resultPara.style.color = 'green';
+            console.log('После удаления:');
+            console.log('  getAttribute("value"):', elem.getAttribute('value')); // null
+            console.log('  Свойство .value:', elem.value); 
+        });
+        
+        checkButton.addEventListener('click', function() {
+            let attributeValue = elem.getAttribute('value');
+            let propertyValue = elem.value;
+            resultPara.innerHTML = `
+                getAttribute('value'): ${attributeValue === null ? 'null' : '"' + attributeValue + '"'}<br>
+                Свойство .value: "${propertyValue}"
+            `;
+            resultPara.style.color = 'blue';
+            console.log('Проверка:');
+            console.log('  Атрибут value:', attributeValue);
+            console.log('  Свойство value:', propertyValue);
+        });
+        restoreButton.addEventListener('click', function() {
+            elem.setAttribute('value', originalValue);
+            console.log('Атрибут value восстановлен');
+            resultPara.textContent = 'Атрибут value восстановлен в "' + originalValue + '"';
+            resultPara.style.color = 'orange';
+        });
+    </script>
+    <input id="elem" value="text">
+    
+    <button onclick="checkAttribute()">Проверить атрибут value</button>
+    <p id="result"></p>
+    <script>
+        function checkAttribute() {
+            let elem = document.getElementById('elem');
+            let hasValue = elem.hasAttribute('value');
+            let result = document.getElementById('result');
+            if (hasValue) {
+                result.textContent = 'Атрибут value есть! Значение: ' + elem.getAttribute('value');
+                result.style.color = 'green';
+            } else {
+                result.textContent = 'Атрибут value отсутствует';
+                result.style.color = 'red';
+            }
+        }
+    </script>
+        <div id="elem" data-text="str" style="padding: 15px; background: lightblue; cursor: pointer;">
+        text
+    </div>
+    
+    <script>
+        let elemed = document.getElementById('elem');
+        elemed.addEventListener('click', function() {
+            let dataText = this.dataset.text;
+            this.textContent += dataText;
+        });
+    </script>
+        <div data-num="1">text</div>
+    <div data-num="2">text</div>
+    <div data-num="3">text</div>
+    <div data-num="4">text</div>
+    <div data-num="5">text</div>
+    
+    <script>
+        let divs = document.querySelectorAll('div');
+        divs.forEach(function(div) {
+            div.addEventListener('click', function() {
+                let num = this.dataset.num;
+                this.textContent += ' [' + num + ']';
+            });
+        });
+    </script>
+    <button id="clickBtn" data-count="0">Кликай сюда (0 кликов)</button>
+    <button id="showBtn">Показать количество кликов</button>
+    <p id="result"></p>
+    
+    <script>
+        let clickBtn = document.getElementById('clickBtn');
+        let showBtn = document.getElementById('showBtn');
+        let result = document.getElementById('result');
+        
+        clickBtn.addEventListener('click', function() {
+            let count = parseInt(this.dataset.count);
+            count++;
+            this.dataset.count = count;
+            this.textContent = 'Кликай сюда (' + count + ' кликов)';
+        });
+        
+        showBtn.addEventListener('click', function() {
+            let count = clickBtn.dataset.count;
+            result.textContent = 'Сделано кликов: ' + count;
+        });
+    </script>
+        <div id="elem" data-product-price="1000" data-product-amount="5">
+        товар яблоки
+    </div>
+    
+    <script>
+        let elemes = document.getElementById('elem');
+        
+        elemes.addEventListener('click', function() {
+
+            let price = parseInt(this.dataset.productPrice); 
+            let amount = parseInt(this.dataset.productAmount); 
+
+            let total = price * amount;
+            if (!this.textContent.includes('Стоимость:')) {
+                this.textContent += ` (Стоимость: ${total})`;
+            }
+            console.log('Цена:', price);
+            console.log('Количество:', amount);
+            console.log('Общая стоимость:', total);
+        });
+    </script>
+        <p>Первый абзац</p>
+    <p>Второй абзац</p>
+    <p>Третий абзац</p>
+    <p>Четвертый абзац</p>
+    <p>Пятый абзац</p>
+    
+    <button id="addNumbersBtn">Добавить номера в data-атрибуты</button>
+    <button id="showNumbersBtn">Показать номера</button>
+    
+    <script>
+        let paragraphs = document.querySelectorAll('p');
+        let addNumbersBtn = document.getElementById('addNumbersBtn');
+        let showNumbersBtn = document.getElementById('showNumbersBtn');
+        addNumbersBtn.addEventListener('click', function() {
+            for (let i = 0; i < paragraphs.length; i++) {
+                paragraphs[i].setAttribute('data-num', i + 1);
+                paragraphs[i].classList.add('numbered');
+                console.log(`Абзац ${i + 1}: data-num = ${paragraphs[i].getAttribute('data-num')}`);
+            }
+            
+            console.log('Номера добавлены через setAttribute');
+        });
+        showNumbersBtn.addEventListener('click', function() {
+            paragraphs.forEach(function(paragraph, index) {
+                let num = paragraph.getAttribute('data-num');
+                if (num) {
+                    if (!paragraph.textContent.includes(`[${num}]`)) {
+                        paragraph.textContent += ` [номер: ${num}]`;
+                    }
+                } else {
+                    console.log(`Абзац ${index + 1}: data-num не установлен`);
+                }
+            });
+        });
+    </script>
+        <p id="elementTarget" class="www ggg zzz">Элемент с тремя классами</p>
+    <button id="countTrigger">Посчитать классы</button>
+    <p id="outputCounter"></p>
+    
+    <script>
+        let paragraphElem = document.getElementById('elementTarget');
+        let countTriggerBtn = document.getElementById('countTrigger');
+        let counterOutput = document.getElementById('outputCounter');
+        
+        countTriggerBtn.addEventListener('click', function() {
+            let totalClasses = paragraphElem.classList.length;
+            
+            counterOutput.textContent = `Количество классов: ${totalClasses}`;
+            console.log('Классов найдено:', totalClasses);
+            console.log('Все классы:', Array.from(paragraphElem.classList));
+        });
+    </script>
+        <p id="targetParagraph" class="www ggg zzz">Элемент с тремя классами</p>
+    <button id="iterateTrigger">Перебрать классы</button>
+    <div id="iterationOutput"></div>
+    
+    <script>
+        let targetElement = document.getElementById('targetParagraph');
+        let iterateButton = document.getElementById('iterateTrigger');
+        let iterationResult = document.getElementById('iterationOutput');
+        
+        iterateButton.addEventListener('click', function() {
+            iterationResult.innerHTML = '<strong>Перебор классов:</strong><br>';
+
+            iterationResult.innerHTML += '<strong>Цикл for:</strong><br>';
+            for (let position = 0; position < targetElement.classList.length; position++) {
+                let currentClass = targetElement.classList[position];
+                iterationResult.innerHTML += `${position + 1}. ${currentClass}<br>`;
+                console.log(`Класс ${position + 1}: ${currentClass}`);
+            }
+
+        });
+    </script>
+        <p id="elem" class="www ggg zzz">Элемент с классами</p>
+    
+    <script>
+        let paragraph = document.getElementById('elem');
+        paragraph.classList.add('xxx');
+        console.log('Текущие классы:', paragraph.className);
+        console.log('Массив классов:', Array.from(paragraph.classList));
+    </script>
+        <p id="elem" class="www ggg zzz">Элемент с классами www, ggg, zzz</p>
+    
+    <script>
+        let targetParagraph = document.getElementById('elem');
+        targetParagraph.classList.remove('www');
+        targetParagraph.classList.remove('zzz');
+        console.log('Остались классы:', targetParagraph.className);
+        console.log('Массив классов:', Array.from(targetParagraph.classList));
+    </script>
+     <p id="elem" class="www ggg zzz">Элемент с классами www, ggg, zzz</p>
+    <button onclick="checkClass()">Проверить класс ggg</button>
+    <p id="result"></p>
+    
+    <script>
+        function checkClass() {
+            let elem = document.getElementById('elem');
+            let result = document.getElementById('result');
+            
+            if (elem.classList.contains('ggg')) {
+                result.textContent = 'Класс ggg присутствует ✓';
+                result.style.color = 'green';
+            } else {
+                result.textContent = 'Класс ggg отсутствует ✗';
+                result.style.color = 'red';
+            }
+        }
+    </script>
+        <div id="elem">Див</div>
+    <button onclick="addStyles()">Добавить стили</button>
+    <script>
+        function addStyles() {
+            let elem = document.getElementById('elem');
+            elem.style.width = '200px';
+            elem.style.height = '100px';
+            elem.style.border = '1px solid black';
+        }
+    </script>
+</body>
+</html>

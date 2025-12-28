@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+        <style>
+        .demo-container {
+            margin: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        textarea {
+            width: 300px;
+            height: 100px;
+            padding: 10px;
+            font-size: 14px;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+        }
+        textarea:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+        .output-paragraph {
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+            min-height: 20px;
+            margin-top: 10px;
+            border-left: 4px solid #4CAF50;
+        }
+    </style>
+</head>
+<body>
+        <div class="demo-container">
+        <h3>Текстовое поле:</h3>
+        <textarea id="textArea" placeholder="Введите текст здесь...">Исходный текст</textarea>
+        
+        <h3>Результат:</h3>
+        <p id="resultParagraph" class="output-paragraph">Текст появится здесь после потери фокуса</p>
+    </div>  
+    <script>
+        let textField = document.getElementById('textArea');
+        let outputText = document.getElementById('resultParagraph');
+        
+        textField.addEventListener('blur', function() {
+            let enteredText = this.value;
+            outputText.textContent = enteredText;
+            console.log('Текст из textarea:', enteredText);
+        });
+        textField.addEventListener('input', function() {
+            let charCount = this.value.length;
+            console.log('Символов введено:', charCount);
+        });
+    </script>
+        <input type="checkbox" id="checkBox"> Согласен с условиями
+    <br><br>
+    <button id="checkBtn">Отметить</button>
+    <button id="uncheckBtn">Снять отметку</button>
+    
+    <script>
+        let checkboxElem = document.getElementById('checkBox');
+        let checkButton = document.getElementById('checkBtn');
+        let uncheckButton = document.getElementById('uncheckBtn');
+        
+        checkButton.addEventListener('click', function() {
+            checkboxElem.checked = true;
+            console.log('Чекбокс отмечен');
+        });
+        
+        uncheckButton.addEventListener('click', function() {
+            checkboxElem.checked = false;
+            console.log('Чекбокс снят');
+        });
+    </script>
+        <input type="checkbox" id="agreeBox"> Согласие на обработку данных
+    <br><br>
+    <button id="submitBtn">Отправить</button>
+    <p id="messageText"></p>
+    
+    <script>
+        let agreementBox = document.getElementById('agreeBox');
+        let submitButton = document.getElementById('submitBtn');
+        let messagePara = document.getElementById('messageText');
+        
+        submitButton.addEventListener('click', function() {
+            if (agreementBox.checked) {
+                messagePara.textContent = 'привет';
+                messagePara.style.color = 'green';
+                console.log('Чекбокс отмечен - вывод: привет');
+            } else {
+                messagePara.textContent = 'пока';
+                messagePara.style.color = 'red';
+                console.log('Чекбокс не отмечен - вывод: пока');
+            }
+        });
+    </script>
+    <input type="checkbox" id="cb2">
+<button onclick="checkBox()">Проверить</button>
+<p id="msg"></p>
+<script>
+function checkBox() {
+    let cb = document.getElementById('cb2');
+    document.getElementById('msg').textContent = cb.checked ? 'привет' : 'пока';
+}
+</script>
+<input type="checkbox" id="cb1">
+<button onclick="document.getElementById('cb1').checked=true">Отметить</button>
+<button onclick="document.getElementById('cb1').checked=false">Снять</button>
+    <input type="checkbox" id="checkBox"> Согласен с условиями
+    <br><br>
+    <button id="toggleButton">Переключить чекбокс</button>
+    <p id="statusText">Статус: не отмечен</p>
+    
+    <script>
+        let checkboxElement = document.getElementById('checkBox');
+        let toggleBtn = document.getElementById('toggleButton');
+        let statusPara = document.getElementById('statusText');
+        
+        toggleBtn.addEventListener('click', function() {
+            checkboxElement.checked = !checkboxElement.checked;
+            if (checkboxElement.checked) {
+                statusPara.textContent = 'Статус: отмечен ✓';
+                statusPara.style.color = 'green';
+            } else {
+                statusPara.textContent = 'Статус: не отмечен ✗';
+                statusPara.style.color = 'red';
+            }
+            
+            console.log('Чекбокс переключен. Новое состояние:', checkboxElement.checked);
+        });
+    </script>
+        <h3>Выберите вариант:</h3>
+    <input type="radio" name="options" value="option1" id="opt1">
+    <label for="opt1">Вариант 1</label><br>
+    
+    <input type="radio" name="options" value="option2" id="opt2" checked>
+    <label for="opt2">Вариант 2</label><br>
+    
+    <input type="radio" name="options" value="option3" id="opt3">
+    <label for="opt3">Вариант 3</label><br>
+    
+    <br>
+    <button id="showButton">Показать выбранный вариант</button>
+    <p id="resultText">Выбранный вариант появится здесь</p>
+    
+    <script>
+        let showBtn = document.getElementById('showButton');
+        let resultPara = document.getElementById('resultText');
+        
+        showBtn.addEventListener('click', function() {
+            let radioButtons = document.querySelectorAll('input[name="options"]');
+            let selectedValue = '';
+            for (let radio of radioButtons) {
+                if (radio.checked) {
+                    selectedValue = radio.value;
+                    break; 
+                }
+            }
+            
+            if (selectedValue) {
+                resultPara.textContent = `Выбран вариант: ${selectedValue}`;
+                resultPara.style.color = 'green';
+                console.log('Выбранное value:', selectedValue);
+            } else {
+                resultPara.textContent = 'Ничего не выбрано';
+                resultPara.style.color = 'red';
+            }
+        });
+    </script>
+    <body>
+    <input type="text" id="textInput" value="Исходный текст">
+    <p id="outputParagraph">Здесь появится текст из инпута</p>
+    
+    <script>
+        let inputElement = document.getElementById('textInput');
+        let outputElement = document.getElementById('outputParagraph');
+        
+        inputElement.addEventListener('change', function() {
+            outputElement.textContent = this.value;
+            console.log('Инпут изменен:', this.value);
+        });
+    </script>
+        <input type="checkbox" id="checkBox"> Согласен с условиями
+    <p id="statusPara">Статус: не отмечен</p>
+    
+    <script>
+        let checkboxElementer = document.getElementById('checkBox');
+        let statusElement = document.getElementById('statusPara');
+        
+        checkboxElementer.addEventListener('change', function() {
+            if (this.checked) {
+                statusElement.textContent = 'Статус: отмечен ✓';
+                statusElement.style.color = 'green';
+            } else {
+                statusElement.textContent = 'Статус: не отмечен ✗';
+                statusElement.style.color = 'red';
+            }
+            
+            console.log('Состояние чекбокса:', this.checked);
+        });
+    </script>
+        <input type="text" id="textInput" placeholder="Введите текст">
+    <p id="messagePara"></p>
+    
+    <script>
+        let inputField = document.getElementById('textInput');
+        let messageParaer = document.getElementById('messagePara');
+        
+        inputField.addEventListener('input', function() {
+            let textLength = this.value.length;
+            
+            if (textLength === 5) {
+                messageParaer.textContent = 'Достигнута длина 5 символов!';
+                messageParaer.style.color = 'orange';
+                console.log('Длина текста достигла 5 символов');
+            }
+        });
+    </script>
+        <h3>Введите текст (максимум 5 символов):</h3>
+    <input type="text" id="limitedInput" maxlength="10">
+    
+    <p id="counterText" class="within-limit">Можно ввести еще: 5 символов</p>
+    <p id="warningText"></p>
+    
+    <script>
+        let limitedInput = document.getElementById('limitedInput');
+        let counterPara = document.getElementById('counterText');
+        let warningPara = document.getElementById('warningText');
+        const MAX_LENGTH = 5;
+        
+        limitedInput.addEventListener('input', function() {
+            let currentLength = this.value.length;
+            let remaining = MAX_LENGTH - currentLength;
+            
+            if (remaining >= 0) {
+                counterPara.textContent = `Можно ввести еще: ${remaining} символов`;
+                counterPara.className = 'within-limit';
+                warningPara.textContent = '';
+            } else {
+                let exceededBy = Math.abs(remaining);
+                counterPara.textContent = `Превышено на: ${exceededBy} символов`;
+                counterPara.className = 'limit-exceeded';
+                
+                warningPara.textContent = `Внимание! Превышен лимит на ${exceededBy} символов`;
+                warningPara.className = 'warning';
+            }
+            
+            console.log(`Длина: ${currentLength}, Осталось: ${remaining}`);
+        });
+        limitedInput.addEventListener('focus', function() {
+            this.value = '';
+            counterPara.textContent = `Можно ввести еще: ${MAX_LENGTH} символов`;
+            counterPara.className = 'within-limit';
+            warningPara.textContent = '';
+        });
+    </script>
+    <input type="text" id="input1" maxlength="2">
+<input type="text" id="input2" maxlength="2">
+
+<script>
+  const input1 = document.querySelector('#input1');
+  const input2 = document.querySelector('#input2');
+
+  input1.addEventListener('input', function() {
+    if (this.value.length === 2) {
+      input2.focus(); 
+    }
+  });
+
+  input2.addEventListener('input', function() {
+    if (this.value.length === 2) {
+      this.blur(); 
+    }
+  });
+</script>
+</body>
+</html>

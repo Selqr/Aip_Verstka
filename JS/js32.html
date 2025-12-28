@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Функции для работы с DOM</title>
+</head>
+<body>
+    <h1>Функции для работы с DOM</h1>
+
+    <h2>Задача n1</h2>
+    <div id="test1" class="test-class">Исходный текст</div>
+    <button onclick="task1_1()">Изменить id</button>
+    <button onclick="task1_2()">Изменить title</button>
+
+    <h2>Задача n2</h2>
+    <div class="append-text">Абзац 1</div>
+    <div class="append-text">Абзац 2</div>
+    <div class="append-text">Абзац 3</div>
+    <button onclick="task2()">Добавить текст</button>
+
+    <h2>Задача n3</h2>
+    <p class="exclamation">Первый абзац</p>
+    <p class="exclamation">Второй абзац</p>
+    <p class="exclamation">Третий абзац</p>
+    <button onclick="task3()">Добавить восклицательные знаки</button>
+
+    <h2>Задача n4</h2>
+    <p class="numbered">Абзац один</p>
+    <p class="numbered">Абзац два</p>
+    <p class="numbered">Абзац три</p>
+    <button onclick="task4()">Добавить номера</button>
+
+    <h2>Задача n5</h2>
+    <div id="appendDiv">Исходный текст: </div>
+    <button onclick="task5_1()">Добавить текст к div</button>
+    
+    <div id="task5_2_container">
+        <p>Абзац 1</p>
+        <p>Абзац 2</p>
+        <p>Абзац 3</p>
+    </div>
+    <button onclick="task5_2()">Добавить '!' к абзацам</button>
+    
+    <input type="text" id="inputField" placeholder="Введите текст">
+    <button onclick="task5_3()">Установить значение</button>
+
+    <h2>Задача n6</h2>
+    <div class="array-text">Элемент 1</div>
+    <div class="array-text">Элемент 2</div>
+    <div class="array-text">Элемент 3</div>
+    <button onclick="task6_1()">Добавить текст к элементам массива</button>
+    
+    <ul id="list1"></ul>
+    <button onclick="task6_2()">Добавить li в список</button>
+    
+    <ul id="list2"></ul>
+    <button onclick="task6_3()">Заполнить список из массива</button>
+
+    <h2>Задача n7</h2>
+    <div id="tableContainer7"></div>
+    <button onclick="task7()">Создать таблицу 3x4</button>
+
+    <h2>Задача n8</h2>
+    <div id="elem8">
+        <p>1</p>
+        <p>2</p>
+        <p>3</p>
+    </div>
+    <button onclick="task8()">Создать таблицу в конце div</button>
+
+    <h2>Задача n9</h2>
+    <div id="arrayTableContainer"></div>
+    <button onclick="task9()">Создать таблицу из массива</button>
+
+    <script>
+        // Утилитарные функции
+        function forEach(selector, callback) {
+            const elements = document.querySelectorAll(selector);
+            elements.forEach(callback);
+        }
+
+        // Задача n1
+        // задание1 - функция setAttr для изменения атрибута по селектору
+        function setAttr(selector, attrName, attrValue) {
+            const elements = document.querySelectorAll(selector);
+            elements.forEach(element => {
+                element.setAttribute(attrName, attrValue);
+            });
+        }
+
+        // задание2 - уже реализовано в setAttr выше
+        function task1_1() {
+            setAttr('#test1', 'id', 'changed-id');
+            // Обновляем текст измененного элемента
+            const element = document.querySelector('#changed-id');
+            if (element) {
+                element.textContent = 'ID изменен на "changed-id"!';
+            }
+        }
+
+        function task1_2() {
+            // Используем селектор по новому id
+            setAttr('#changed-id', 'title', 'Новый заголовок элемента');
+            // Показываем подтверждение
+            const element = document.querySelector('#changed-id');
+            if (element) {
+                element.textContent = 'ID и title изменены! Наведи курсор для просмотра title.';
+            }
+        }
+
+        // Задача n2
+        function appendText(selector, text) {
+            const elements = document.querySelectorAll(selector);
+            elements.forEach(element => {
+                element.textContent += text;
+            });
+        }
+
+        function task2() {
+            appendText('.append-text', ' - добавленный текст');
+        }
+
+        // Задача n3
+        function task3() {
+            // Используем нашу функцию forEach
+            forEach('.exclamation', function(element) {
+                element.textContent += '!';
+            });
+        }
+
+        // Задача n4
+        function task4() {
+            let counter = 1;
+            forEach('.numbered', function(element, index) {
+                // Используем параметр index для порядкового номера
+                element.textContent = (index + 1) + '. ' + element.textContent;
+            });
+        }
+
+        // Задача n5
+        // задание1
+        function appendTextToElement(element, text) {
+            if (element) {
+                element.textContent += text;
+            }
+        }
+
+        function task5_1() {
+            const div = document.querySelector('#appendDiv');
+            appendTextToElement(div, ' Добавленный текст!');
+        }
+
+        // задание2
+        function task5_2() {
+            const paragraphs = document.querySelectorAll('#task5_2_container p');
+            paragraphs.forEach(function(p) {
+                appendTextToElement(p, '!');
+            });
+        }
+
+        // задание3
+        function setValue(inputElement, text) {
+            if (inputElement) {
+                inputElement.value = text;
+            }
+        }
+
+        function task5_3() {
+            const input = document.querySelector('#inputField');
+            setValue(input, 'Новое значение поля');
+        }
+
+        // Задача n6
+        // задание1
+        function appendTextToArray(elements, text) {
+            if (elements && elements.length > 0) {
+                elements.forEach(function(element) {
+                    element.textContent += text;
+                });
+            }
+        }
+
+        function task6_1() {
+            const elements = document.querySelectorAll('.array-text');
+            appendTextToArray(elements, ' (обработан)');
+        }
+
+        // задание2
+        function appendElem(ulElement, text) {
+            if (ulElement) {
+                const li = document.createElement('li');
+                li.textContent = text;
+                ulElement.appendChild(li);
+            }
+        }
+
+        function task6_2() {
+            const ul = document.querySelector('#list1');
+            appendElem(ul, 'Новый элемент списка');
+        }
+
+        // задание3
+        function task6_3() {
+            const ul = document.querySelector('#list2');
+            const array = ['Яблоко', 'Банан', 'Апельсин', 'Груша'];
+            
+            array.forEach(function(item) {
+                appendElem(ul, item);
+            });
+        }
+
+        // Задача n7 - создание таблицы
+        function createTable(rows, cols, parent) {
+            let table = document.createElement('table');
+            table.border = '1';
+            
+            for (let i = 0; i < rows; i++) {
+                let tr = document.createElement('tr');
+                
+                for (let j = 0; j < cols; j++) {
+                    let td = document.createElement('td');
+                    td.textContent = `Строка ${i+1}, Колонка ${j+1}`;
+                    td.style.padding = '5px';
+                    tr.appendChild(td);
+                }
+                
+                table.appendChild(tr);
+            }
+            
+            if (parent) {
+                parent.appendChild(table);
+            }
+            
+            return table;
+        }
+
+        function task7() {
+            const container = document.querySelector('#tableContainer7');
+            if (container) {
+                container.innerHTML = '';
+                createTable(3, 4, container);
+            }
+        }
+
+        // Задача n8
+        // задание1 - улучшенная функция createTable
+        function createTableImproved(rows, cols) {
+            let table = document.createElement('table');
+            table.border = '1';
+            
+            for (let i = 0; i < rows; i++) {
+                let tr = document.createElement('tr');
+                
+                for (let j = 0; j < cols; j++) {
+                    let td = document.createElement('td');
+                    td.textContent = `${i+1}-${j+1}`;
+                    td.style.padding = '5px';
+                    td.style.textAlign = 'center';
+                    tr.appendChild(td);
+                }
+                
+                table.appendChild(tr);
+            }
+            
+            return table;
+        }
+
+        // задание2
+        function task8() {
+            const div = document.querySelector('#elem8');
+            if (div) {
+                const table = createTableImproved(2, 3);
+                div.appendChild(table);
+            }
+        }
+
+        // Задача n9
+        function createTableByArr(arr) {
+            let table = document.createElement('table');
+            table.border = '1';
+            
+            for (let i = 0; i < arr.length; i++) {
+                let tr = document.createElement('tr');
+                
+                // Проверяем, является ли элемент массива массивом
+                if (Array.isArray(arr[i])) {
+                    for (let j = 0; j < arr[i].length; j++) {
+                        let td = document.createElement('td');
+                        td.textContent = arr[i][j];
+                        td.style.padding = '5px';
+                        td.style.textAlign = 'center';
+                        tr.appendChild(td);
+                    }
+                } else {
+                    // Если не массив, создаем одну ячейку
+                    let td = document.createElement('td');
+                    td.textContent = arr[i];
+                    td.style.padding = '5px';
+                    td.style.textAlign = 'center';
+                    td.colSpan = 1;
+                    tr.appendChild(td);
+                }
+                
+                table.appendChild(tr);
+            }
+            
+            return table;
+        }
+
+        function task9() {
+            const container = document.querySelector('#arrayTableContainer');
+            if (container) {
+                container.innerHTML = '';
+                
+                let arr = [
+                    [1, 2, 3, 4],
+                    [5, 6, 7, 8],
+                    [9, 10, 11, 12]
+                ];
+                
+                let table = createTableByArr(arr);
+                container.appendChild(table);
+            }
+        }
+
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Документ загружен. Все функции готовы к работе.');
+            
+            // Запускаем некоторые задачи для демонстрации
+            task6_2(); // Добавим один элемент в первый список
+            task6_2(); // Добавим еще один
+            task6_3(); // Заполним второй список из массива
+        });
+    </script>
+</body>
+</html>

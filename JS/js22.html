@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+        <style>
+        .clearfix::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+        .list-item {
+            width: 100px;
+            height: 50px;
+            margin: 5px;
+            background: lightblue;
+            text-align: center;
+            line-height: 50px;
+            border: 1px solid #2196F3;
+        }
+                .strikethrough { text-decoration: line-through; }
+        .bold { font-weight: bold; }
+        .red { color: red; }
+        
+        .styled-paragraph {
+            padding: 15px;
+            margin: 20px;
+            border: 1px solid #ccc;
+            font-size: 18px;
+            transition: all 0.3s;
+        }
+        .button-group {
+            margin: 10px;
+        }
+        .style-button {
+            padding: 10px 15px;
+            margin: 5px;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+            background-color: #2196F3;
+            color: white;
+        }
+        .toggle-button {
+            background-color: #4CAF50;
+        }
+        #elem {
+	     display: none;
+	     width: 200px;
+	     height: 200px;
+         border: 1px solid green;
+       }
+#elem.active {
+	display: block;
+}
+    </style>
+        <style>
+        .strikethrough { text-decoration: line-through; }
+        .bold { font-weight: bold; }
+        .red { color: red; }
+        .highlighted { background-color: yellow; }
+        
+        .demo-paragraph {
+            padding: 20px;
+            margin: 15px;
+            border: 1px solid #ddd;
+            font-size: 18px;
+            transition: all 0.3s;
+        }
+        .toggle-button {
+            padding: 12px 18px;
+            margin: 8px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+        .status-indicator {
+            padding: 10px;
+            margin: 10px;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+    </style>
+    
+</head>
+<body>
+    <div id="targetDiv">Этот div получит стили при нажатии кнопки</div>
+    <button id="styleButton">Добавить стили к div</button>
+    
+    <script>
+        let divElement = document.getElementById('targetDiv');
+        let buttonElement = document.getElementById('styleButton');
+        
+        buttonElement.addEventListener('click', function() {
+            divElement.style.width = '300px';
+            divElement.style.height = '200px';
+            divElement.style.border = '2px solid blue';
+            divElement.style.backgroundColor = '#f0f0f0';
+            divElement.style.padding = '20px';
+            divElement.style.margin = '10px';
+            console.log('Стили добавлены к div');
+        });
+    </script>
+    <div id="containerBox">Этот блок изменит оформление</div>
+    <button id="applyStylesBtn">Применить стили</button>
+    
+    <script>
+        let contentBlock = document.getElementById('containerBox');
+        let styleButton = document.getElementById('applyStylesBtn');
+        
+        styleButton.addEventListener('click', function() {
+            contentBlock.style.fontSize = '20px';
+            contentBlock.style.borderTop = '3px solid #e91e63';
+            contentBlock.style.background = '#e8f5e9';
+            contentBlock.style.padding = '15px';
+            contentBlock.style.margin = '10px';
+            contentBlock.style.borderRadius = '8px';
+            
+            console.log('Оформление применено');
+        });
+    </script>
+        <ul id="itemList" class="clearfix">
+        <li class="list-item">Пункт 1</li>
+        <li class="list-item">Пункт 2</li>
+        <li class="list-item">Пункт 3</li>
+        <li class="list-item">Пункт 4</li>
+        <li class="list-item">Пункт 5</li>
+    </ul>
+    
+    <button id="floatButton">Применить float: left</button>
+    <button id="resetButton">Сбросить float</button>
+    
+    <script>
+        let listContainer = document.getElementById('itemList');
+        let applyButton = document.getElementById('floatButton');
+        let resetBtn = document.getElementById('resetButton');
+        
+        applyButton.addEventListener('click', function() {
+            let listItems = document.querySelectorAll('.list-item');
+            listItems.forEach(function(item) {
+                item.style.cssFloat = 'left';
+            });
+            console.log('Применен float: left ко всем элементам li');
+        });
+        
+        resetBtn.addEventListener('click', function() {
+            let listItems = document.querySelectorAll('.list-item');
+            listItems.forEach(function(item) {
+                item.style.cssFloat = 'none';
+            });        
+            console.log('Float сброшен');
+        });
+    </script>
+        <p id="textParagraph" class="styled-paragraph">
+        Этот текст можно стилизовать с помощью кнопок ниже
+    </p>
+    
+    <div class="button-group">
+        <button id="strikeBtn" class="style-button">Перечеркнуть</button>
+        <button id="boldBtn" class="style-button">Сделать жирным</button>
+        <button id="redBtn" class="style-button">Сделать красным</button>
+    </div>
+    
+    <div class="button-group">
+        <button id="toggleStrikeBtn" class="style-button toggle-button">Переключить перечеркивание</button>
+        <button id="toggleBoldBtn" class="style-button toggle-button">Переключить жирность</button>
+        <button id="toggleRedBtn" class="style-button toggle-button">Переключить красный цвет</button>
+    </div>
+    
+    <div class="button-group">
+        <button id="resetBtn" class="style-button">Сбросить все стили</button>
+    </div>
+    
+    <script>
+        let textElement = document.getElementById('textParagraph');
+        document.getElementById('strikeBtn').addEventListener('click', function() {
+            textElement.classList.add('strikethrough');
+            console.log('Добавлено перечеркивание');
+        });  
+        document.getElementById('boldBtn').addEventListener('click', function() {
+            textElement.classList.add('bold');
+            console.log('Добавлена жирность');
+        }); 
+        document.getElementById('redBtn').addEventListener('click', function() {
+            textElement.classList.add('red');
+            console.log('Добавлен красный цвет');
+        });
+        document.getElementById('toggleStrikeBtn').addEventListener('click', function() {
+            textElement.classList.toggle('strikethrough');
+            console.log('Перечеркивание:', textElement.classList.contains('strikethrough'));
+        });
+        document.getElementById('toggleBoldBtn').addEventListener('click', function() {
+            textElement.classList.toggle('bold');
+            console.log('Жирность:', textElement.classList.contains('bold'));
+        });
+        document.getElementById('toggleRedBtn').addEventListener('click', function() {
+            textElement.classList.toggle('red');
+            console.log('Красный цвет:', textElement.classList.contains('red'));
+        });
+        document.getElementById('resetBtn').addEventListener('click', function() {
+            textElement.classList.remove('strikethrough', 'bold', 'red');
+            console.log('Все стили сброшены');
+        });
+    </script>
+        <h2>Переключение стилей с помощью classList.toggle()</h2>
+    
+    <p id="toggleParagraph" class="demo-paragraph">
+        Нажмите на кнопки для переключения стилей. Повторное нажатие отменяет действие.
+    </p>
+    
+    <div>
+        <button id="toggleStrikeBtn" class="toggle-button">Переключить перечеркивание</button>
+        <button id="toggleBoldBtn" class="toggle-button">Переключить жирность</button>
+        <button id="toggleRedBtn" class="toggle-button">Переключить красный цвет</button>
+        <button id="toggleHighlightBtn" class="toggle-button">Переключить подсветку</button>
+    </div>
+    
+    <div>
+        <button id="toggleAllBtn" class="toggle-button">Переключить все стили сразу</button>
+        <button id="clearAllBtn" class="toggle-button">Удалить все стили</button>
+    </div>
+    
+    <div id="statusDisplay" class="status-indicator">
+        Статус стилей: ожидание действий...
+    </div>
+    
+    <script>
+        let paragraph = document.getElementById('toggleParagraph');
+        let statusDisplay = document.getElementById('statusDisplay');
+        
+        // Функция для обновления статуса
+        function updateStatus() {
+            let styles = [];
+            if (paragraph.classList.contains('strikethrough')) styles.push('перечеркивание');
+            if (paragraph.classList.contains('bold')) styles.push('жирность');
+            if (paragraph.classList.contains('red')) styles.push('красный цвет');
+            if (paragraph.classList.contains('highlighted')) styles.push('подсветка');
+            
+            if (styles.length > 0) {
+                statusDisplay.textContent = 'Применены: ' + styles.join(', ');
+                statusDisplay.style.color = '#388E3C';
+            } else {
+                statusDisplay.textContent = 'Стили не применены';
+                statusDisplay.style.color = '#757575';
+            }
+        }
+        document.getElementById('toggleStrikeBtn').addEventListener('click', function() {
+            paragraph.classList.toggle('strikethrough');
+            updateStatus();
+            console.log('Перечеркивание:', paragraph.classList.contains('strikethrough'));
+        });
+        document.getElementById('toggleBoldBtn').addEventListener('click', function() {
+            paragraph.classList.toggle('bold');
+            updateStatus();
+            console.log('Жирность:', paragraph.classList.contains('bold'));
+        });
+        document.getElementById('toggleRedBtn').addEventListener('click', function() {
+            paragraph.classList.toggle('red');
+            updateStatus();
+            console.log('Красный цвет:', paragraph.classList.contains('red'));
+        });    
+        document.getElementById('toggleHighlightBtn').addEventListener('click', function() {
+            paragraph.classList.toggle('highlighted');
+            updateStatus();
+            console.log('Подсветка:', paragraph.classList.contains('highlighted'));
+        });
+        document.getElementById('toggleAllBtn').addEventListener('click', function() {
+            paragraph.classList.toggle('strikethrough');
+            paragraph.classList.toggle('bold');
+            paragraph.classList.toggle('red');
+            paragraph.classList.toggle('highlighted');
+            updateStatus();
+            console.log('Все стили переключены');
+        });
+        document.getElementById('clearAllBtn').addEventListener('click', function() {
+            paragraph.classList.remove('strikethrough', 'bold', 'red', 'highlighted');
+            updateStatus();
+            console.log('Все стили удалены');
+        });
+        updateStatus();
+    </script>
+    <button id="button">click me</button>
+<div id="elem"></div>
+<script> let button = document.querySelector('#button');
+let elem = document.querySelector('#elem');
+
+button.addEventListener('click', function() {
+	elem.classList.toggle('active');
+});</script>
+</body>
+</html>

@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Модули в JavaScript</title>
+    <link rel="stylesheet" href="styleJS.css">
+</head>
+<body>
+    <h2>Задача n1 - Сумма чисел</h2>
+    <input type="number" id="num1" value="0">
+    <input type="number" id="num2" value="0">
+    <input type="number" id="num3" value="0">
+    <button id="sumBtn">Посчитать сумму</button>
+    <div id="sumResult"></div>
+
+    <h2>Задача n2 - Экспорт переменных и функций</h2>
+    <button id="exportTest">Проверить экспорт</button>
+
+    <h2>Задача n3 - Экспорт объекта</h2>
+    <button id="objectTest">Проверить экспорт объекта</button>
+
+    <h2>Задача n4 - Модуль с математическими функциями</h2>
+    <h3>Массив: <span id="arrDisplay">[1, 2, 3, 4, 5]</span></h3>
+    <button id="avg1">Среднее арифметическое</button>
+    <button id="avg2">Среднее квадратов</button>
+    <button id="avg3">Среднее кубов</button>
+    <div id="avgResult"></div>
+
+    <h3>Своя библиотека (аналог underscore)</h3>
+    <div>
+        <strong>Исходный массив:</strong> <span id="sourceArray">[1, 2, 3, 4, 5]</span>
+    </div>
+    <div>
+        <button id="mapTest">map (умножить на 2)</button>
+        <button id="filterTest">filter (четные)</button>
+        <button id="reduceTest">reduce (сумма)</button>
+        <button id="eachTest">each (вывод в консоль)</button>
+        <button id="findTest">find (первый больше 3)</button>
+    </div>
+    <div id="libResult"></div>
+
+    <script>
+        // Задача n1 - Модуль суммы чисел
+        (function(btnSelector, inputSelectors, resultSelector) {
+            const btn = document.querySelector(btnSelector);
+            const inputs = inputSelectors.map(selector => document.querySelector(selector));
+            const resultDiv = document.querySelector(resultSelector);
+            
+            function calculateSum() {
+                let sum = 0;
+                inputs.forEach(input => {
+                    sum += Number(input.value) || 0;
+                });
+                return sum;
+            }
+            
+            btn.addEventListener('click', function() {
+                const sum = calculateSum();
+                resultDiv.textContent = `Сумма: ${sum}`;
+                console.log(`Сумма чисел: ${sum}`);
+            });
+        })('#sumBtn', ['#num1', '#num2', '#num3'], '#sumResult');
+
+        const moduleN2 = (function() {
+            let str1 = 'первая переменная модуля';
+            let str2 = 'вторая переменная модуля';
+            let str3 = 'третья переменная модуля';
+            
+            function func1() {
+                alert('функция 1 модуля');
+            }
+            
+            function func2() {
+                alert('функция 2 модуля');
+            }
+            
+            function func3() {
+                alert('функция 3 модуля');
+            }
+            
+            window.moduleStr = str1;
+            window.moduleFunc1 = func1;
+            window.moduleFunc2 = func2;
+            
+            return {
+                getStr1: () => str1,
+                getStr2: () => str2,
+                getStr3: () => str3,
+                func3: func3
+            };
+        })();
+        
+        document.querySelector('#exportTest').addEventListener('click', function() {
+            moduleFunc1();
+            moduleFunc2();
+            console.log('Экспортированная переменная:', window.moduleStr);
+            console.log('Доступ через возвращаемый объект:', moduleN2.getStr1());
+        });
+
+        // Задача n3 - Экспорт объекта
+        const moduleN3 = (function() {
+            let str1 = 'module variable 1';
+            let str2 = 'module variable 2';
+            let str3 = 'module variable 3';
+            
+            function func1() {
+                return 'module function 1';
+            }
+            
+            function func2() {
+                return 'module function 2';
+            }
+            
+            function func3() {
+                return 'module function 3';
+            }
+            
+            function func4() {
+                return 'module function 4';
+            }
+            
+            function func5() {
+                return 'module function 5';
+            }
+            
+            return {
+                str1: str1,
+                str2: str2,
+                func1: func1,
+                func2: func2,
+                func3: func3,
+                func4: func4,
+                func5: func5
+            };
+        })();
+        
+        document.querySelector('#objectTest').addEventListener('click', function() {
+            console.log('Переменные из модуля:');
+            console.log('str1:', moduleN3.str1);
+            console.log('str2:', moduleN3.str2);
+            
+            console.log('Функции из модуля:');
+            console.log('func1():', moduleN3.func1());
+            console.log('func2():', moduleN3.func2());
+            console.log('func3():', moduleN3.func3());
+            console.log('func4():', moduleN3.func4());
+            console.log('func5():', moduleN3.func5());
+        });
+
+        // Задача n4 - Математический модуль
+        const mathModule = (function() {
+            function sum(arr, pow) {
+                let res = 0;
+                for (let elem of arr) {
+                    res += Math.pow(elem, pow);
+                }
+                return res;
+            }
+            
+            function avg1(arr) {
+                return sum(arr, 1) / arr.length;
+            }
+            
+            function avg2(arr) {
+                return sum(arr, 2) / arr.length;
+            }
+            
+            function avg3(arr) {
+                return sum(arr, 3) / arr.length;
+            }
+            
+            return {
+                average: avg1,
+                averageOfSquares: avg2,
+                averageOfCubes: avg3,
+                avg1: avg1, 
+                avg2: avg2,
+                avg3: avg3
+            };
+        })();
+        
+        const testArray = [1, 2, 3, 4, 5];
+        
+        document.querySelector('#avg1').addEventListener('click', function() {
+            const result = mathModule.avg1(testArray);
+            document.querySelector('#avgResult').textContent = 
+                `Среднее арифметическое: ${result.toFixed(2)}`;
+        });
+        
+        document.querySelector('#avg2').addEventListener('click', function() {
+            const result = mathModule.avg2(testArray);
+            document.querySelector('#avgResult').textContent = 
+                `Среднее квадратов: ${result.toFixed(2)}`;
+        });
+        
+        document.querySelector('#avg3').addEventListener('click', function() {
+            const result = mathModule.avg3(testArray);
+            document.querySelector('#avgResult').textContent = 
+                `Среднее кубов: ${result.toFixed(2)}`;
+        });
+
+        const myLib = (function() {
+            function map(arr, callback) {
+                const result = [];
+                for (let i = 0; i < arr.length; i++) {
+                    result.push(callback(arr[i], i, arr));
+                }
+                return result;
+            }
+
+            function filter(arr, callback) {
+                const result = [];
+                for (let i = 0; i < arr.length; i++) {
+                    if (callback(arr[i], i, arr)) {
+                        result.push(arr[i]);
+                    }
+                }
+                return result;
+            }
+
+            function reduce(arr, callback, initialValue) {
+                let accumulator = initialValue !== undefined ? initialValue : arr[0];
+                let startIndex = initialValue !== undefined ? 0 : 1;
+                
+                for (let i = startIndex; i < arr.length; i++) {
+                    accumulator = callback(accumulator, arr[i], i, arr);
+                }
+                
+                return accumulator;
+            }
+            
+            function each(arr, callback) {
+                for (let i = 0; i < arr.length; i++) {
+                    callback(arr[i], i, arr);
+                }
+                return arr;
+            }
+            
+            function find(arr, callback) {
+                for (let i = 0; i < arr.length; i++) {
+                    if (callback(arr[i], i, arr)) {
+                        return arr[i];
+                    }
+                }
+                return undefined;
+            }
+            
+            function contains(arr, value) {
+                for (let i = 0; i < arr.length; i++) {
+                    if (arr[i] === value) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            
+            function pluck(arr, propertyName) {
+                return map(arr, function(item) {
+                    return item[propertyName];
+                });
+            }
+            
+            function without(arr, ...values) {
+                return filter(arr, function(item) {
+                    return !contains(values, item);
+                });
+            }
+            
+            function shuffle(arr) {
+                const result = [...arr];
+                for (let i = result.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [result[i], result[j]] = [result[j], result[i]];
+                }
+                return result;
+            }
+            
+            function sample(arr, n = 1) {
+                const shuffled = shuffle(arr);
+                return n === 1 ? shuffled[0] : shuffled.slice(0, n);
+            }
+            
+            return {
+                map: map,
+                filter: filter,
+                reduce: reduce,
+                each: each,
+                find: find,
+                contains: contains,
+                pluck: pluck,
+                without: without,
+                shuffle: shuffle,
+                sample: sample
+            };
+        })();
+        
+        const sourceArray = [1, 2, 3, 4, 5];
+        
+        document.querySelector('#mapTest').addEventListener('click', function() {
+            const result = myLib.map(sourceArray, function(num) {
+                return num * 2;
+            });
+            document.querySelector('#libResult').textContent = 
+                `map (умножить на 2): [${result.join(', ')}]`;
+        });
+        
+        document.querySelector('#filterTest').addEventListener('click', function() {
+            const result = myLib.filter(sourceArray, function(num) {
+                return num % 2 === 0;
+            });
+            document.querySelector('#libResult').textContent = 
+                `filter (четные): [${result.join(', ')}]`;
+        });
+        
+        document.querySelector('#reduceTest').addEventListener('click', function() {
+            const result = myLib.reduce(sourceArray, function(sum, num) {
+                return sum + num;
+            }, 0);
+            document.querySelector('#libResult').textContent = 
+                `reduce (сумма): ${result}`;
+        });
+        
+        document.querySelector('#eachTest').addEventListener('click', function() {
+            let output = '';
+            myLib.each(sourceArray, function(num, index) {
+                output += `Элемент ${index}: ${num}\n`;
+            });
+            document.querySelector('#libResult').textContent = 
+                `each (вывод элементов):\n${output}`;
+            console.log('each вывод в консоль:');
+            myLib.each(sourceArray, function(num) {
+                console.log(num);
+            });
+        });
+        
+        document.querySelector('#findTest').addEventListener('click', function() {
+            const result = myLib.find(sourceArray, function(num) {
+                return num > 3;
+            });
+            document.querySelector('#libResult').textContent = 
+                `find (первый больше 3): ${result}`;
+        });
+        
+        console.log('=== Примеры использования моей библиотеки ===');
+        
+        const users = [
+            { name: 'Иван', age: 25 },
+            { name: 'Мария', age: 30 },
+            { name: 'Алексей', age: 20 }
+        ];
+        
+        console.log('pluck (имена пользователей):', myLib.pluck(users, 'name'));
+        
+        console.log('without (массив без 2 и 4):', myLib.without([1, 2, 3, 4, 5], 2, 4));
+        
+        console.log('contains (содержит ли массив число 3):', myLib.contains([1, 2, 3, 4, 5], 3));
+        
+        console.log('sample (случайный элемент):', myLib.sample([1, 2, 3, 4, 5]));
+        
+        console.log('shuffle (перемешанный массив):', myLib.shuffle([1, 2, 3, 4, 5]));
+    </script>
+</body>
+</html>
