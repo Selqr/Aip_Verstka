@@ -4,14 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Функции для работы с DOM</title>
+    <link rel="stylesheet" href="styleJS.css">
 </head>
 <body>
     <h1>Функции для работы с DOM</h1>
 
-    <h2>Задача n1</h2>
-    <div id="test1" class="test-class">Исходный текст</div>
-    <button onclick="task1_1()">Изменить id</button>
-    <button onclick="task1_2()">Изменить title</button>
+    <div id="elem1">Элемент 1</div>
+    <div class="test">Элемент 2</div>
+    <div class="test">Элемент 3</div>
+    
+    <br>
+    <button onclick="test1()">Изменить по id</button>
+    <button onclick="test2()">Изменить по классу</button>
 
     <h2>Задача n2</h2>
     <div class="append-text">Абзац 1</div>
@@ -81,18 +85,31 @@
         }
 
         // Задача n1
-        // задание1 - функция setAttr для изменения атрибута по селектору
         function setAttr(selector, attrName, attrValue) {
-            const elements = document.querySelectorAll(selector);
-            elements.forEach(element => {
-                element.setAttribute(attrName, attrValue);
+            let elements = document.querySelectorAll(selector);
+            elements.forEach(elem => {
+                elem.setAttribute(attrName, attrValue);
+            });
+        }
+        
+        function test1() {
+            setAttr('#elem1', 'title', 'Элемент изменен по id');
+            setAttr('#elem1', 'style', 'color: red; background: yellow;');
+            document.getElementById('elem1').textContent = 'Элемент 1 (id)';
+        }
+        
+        function test2() {
+            setAttr('.test', 'title', 'Элемент изменен по классу');
+            setAttr('.test', 'style', 'color: blue; background: lightgray;');
+            let tests = document.querySelectorAll('.test');
+            tests.forEach((elem, i) => {
+                elem.textContent = `Элемент ${i+2} (класс)`;
             });
         }
 
         // задание2 - уже реализовано в setAttr выше
         function task1_1() {
             setAttr('#test1', 'id', 'changed-id');
-            // Обновляем текст измененного элемента
             const element = document.querySelector('#changed-id');
             if (element) {
                 element.textContent = 'ID изменен на "changed-id"!';
@@ -100,9 +117,7 @@
         }
 
         function task1_2() {
-            // Используем селектор по новому id
             setAttr('#changed-id', 'title', 'Новый заголовок элемента');
-            // Показываем подтверждение
             const element = document.querySelector('#changed-id');
             if (element) {
                 element.textContent = 'ID и title изменены! Наведи курсор для просмотра title.';
@@ -123,7 +138,6 @@
 
         // Задача n3
         function task3() {
-            // Используем нашу функцию forEach
             forEach('.exclamation', function(element) {
                 element.textContent += '!';
             });
@@ -133,7 +147,6 @@
         function task4() {
             let counter = 1;
             forEach('.numbered', function(element, index) {
-                // Используем параметр index для порядкового номера
                 element.textContent = (index + 1) + '. ' + element.textContent;
             });
         }
@@ -244,7 +257,6 @@
         }
 
         // Задача n8
-        // задание1 - улучшенная функция createTable
         function createTableImproved(rows, cols) {
             let table = document.createElement('table');
             table.border = '1';
@@ -283,7 +295,6 @@
             for (let i = 0; i < arr.length; i++) {
                 let tr = document.createElement('tr');
                 
-                // Проверяем, является ли элемент массива массивом
                 if (Array.isArray(arr[i])) {
                     for (let j = 0; j < arr[i].length; j++) {
                         let td = document.createElement('td');
@@ -293,7 +304,6 @@
                         tr.appendChild(td);
                     }
                 } else {
-                    // Если не массив, создаем одну ячейку
                     let td = document.createElement('td');
                     td.textContent = arr[i];
                     td.style.padding = '5px';
@@ -324,14 +334,12 @@
             }
         }
 
-        // Инициализация
         document.addEventListener('DOMContentLoaded', function() {
             console.log('Документ загружен. Все функции готовы к работе.');
             
-            // Запускаем некоторые задачи для демонстрации
-            task6_2(); // Добавим один элемент в первый список
-            task6_2(); // Добавим еще один
-            task6_3(); // Заполним второй список из массива
+            task6_2();
+            task6_2(); 
+            task6_3(); 
         });
     </script>
 </body>
